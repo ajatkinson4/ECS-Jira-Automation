@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Stack App</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/home.css') }}">
+</head>
+
+<body>
+    <div class="topBar">
+        <div>
+            <img src="/static/styles/ecs.webp" onclick="imgClick()" role="button">
+            <img src="/static/styles/jira.png" onclick="jiraClick()" role="button">
+        </div>
+
+        <div class="nav">
+            <a class="active" href="/">HOME</a>
+            <!-- <a href="/">ABOUT</a> -->
+            <a href="/forms">FORMS</a>
+            <!-- <a href="/">DEVELOPER</a> -->
+        </div>
+    </div>
+
+    <div class="greet">
+        <div>
+            <h1>Welcome</h1>
+        </div>
+
+        <div class="info">
+            <p>This is a full stack web application which allows users to complete onboarding
+                or offboarding forms for Eldon C. Stutsman. Upon completion, the form information will be
+                sent to Jira, ECS's ticketing system. Using automation, a new ticket is created with the
+                appropriate Jira fields updated based on the user's input. Click the button below to get started!
+            </p>
+        </div>
+    </div>
+
+    <div class="form">
+        <button type="button" onclick="formClick()">Create New Form</button>
+    </div>
+
+
+    <script>
+        function imgClick() {
+            window.open("https://stutsmans.com/")
+        }
+
+        function jiraClick() {
+            window.open("https://stutsmans-sandbox-124.atlassian.net/jira/servicedesk/projects/ST/queues/custom/6")
+        }
+
+        function formClick() {
+            location.href = "/forms"
+        }
+
+    </script>
+</body>
+</html>

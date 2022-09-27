@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Stack App</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/forms.css') }}">
+    <link href="/forms/onboard.html" rel="import" />
+</head>
+
+<body id="body">
+    <div class="topBar">
+        <div class="pics">
+            <img src="/static/styles/ecs.webp" onclick="imgClick()" role="button">
+            <img src="/static/styles/jira.png" onclick="jiraClick()" role="button">
+        </div>
+
+        <div class="nav">
+            <a href="/">HOME</a>
+            <!-- <a href="/">ABOUT</a> -->
+            <a class="active" href="/forms">FORMS</a>
+            <!-- <a href="/">DEVELOPER</a> -->
+        </div>
+    </div>
+
+    <div id="greet">
+        <div>
+            <h1>Eldon C. Stutsman</h1>
+        </div>
+
+        <div>
+            <p>Please select a form.</p>
+        </div>
+
+        <div class="formSelect" id="formSelect">
+            <button class="button button1"  id="button1" value="onboard" onClick="onboardClick()">Onboard</button>
+            <button class="button button2"  id="button2" value="offboard" onClick="offboardClick()">Offboard</button>
+        </div>
+    </div>
+
+    <form method="GET" action="">
+        <div id="onboardForm" style="display:none">
+            <div id="employeeInfo">
+                <div>
+                    <h1>Employee Information</h1>
+                </div>
+
+                <div class="grid">
+                    <div class="input">
+                        <div>
+                            <label>Name:</label>
+                        </div>
+                        
+                        <div>
+                            <input type="text" id="name" autocomplete="off" required/>
+                        </div>
+                    </div>
+
+                    <div class="input">
+                        <div>
+                            <label>Start Date:</label>
+                        </div>
+                        
+                        <div>
+                            <input type="date" id="date" autocomplete="off" required/>
+                        </div>
+                    </div>
+
+                    <div class="input">
+                        <div>
+                            <label>Manager:</label>
+                        </div>
+                        
+                        <div>
+                            <!-- <select name="manager" id="manager" required>
+                                <option value="Matthew Mapel">Matthew Maple</option>
+                                <option value="Alex Atkinson">Alex Atkinson</option>
+                                <option value="Luke Skywalker">Luke Skywalker</option>
+                                <option value="Darth Vadar">Darth Vadar</option>
+                            </select> -->
+                            <input type="text" id="manager" autocomplete="off" required/>
+                        </div>
+                    </div>
+
+                    <div class="textArea">
+                        <div>
+                            <label for="description">Description:</label>
+                        </div>
+                        <div>
+                            <textarea id="description"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="input">
+                        <div>
+                            <label>Company:</label>
+                        </div>
+                        <div>
+                            <select name="company" id="company" required>
+                                <option value="10116">Eldon C. Stutsman</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input">
+                        <div>
+                            <label>Department:</label>
+                        </div>
+                        <div>
+                            <input type="text" id="department" autocomplete="off" required/>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="input">
+                        <div>
+                            <label>Job Title:</label>
+                        </div>
+                        <div>
+                            <input type="text" id="jobTitle" autocomplete="off" required/>
+                        </div>
+                    </div>
+
+                    <div class="input">
+                        <div>
+                            <label>Employee ID:</label>
+                        </div>
+                        <div>
+                            <input type="text" id="employeeID" autocomplete="off" required/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="hardwareInfo" style="display:block">
+                <div>
+                    <h1>Hardware Information</h1>
+                </div>
+
+                <div>
+                    <button type="button" class="scroll user" onclick="cpuForm()">Computer User</button>
+                    <button type="button" class="scroll user" onclick="nonCpuForm()">Non-Computer User</button>
+                </div>
+                
+                <div id="computerUser" style="display:none">
+                    <div class="radioGroup">
+                        <label>Active Directory account needed?</label><br>
+                        <input type="radio" id="AD" value="true" name="AD" required>
+                        <label id="radioButts" for="AD">Yes</label><br>
+
+                        <input type="radio" value="false" name="AD">
+                        <label id="radioButts">No</label><br>
+                    </div>
+
+                   <div class="radioGroup">
+                        <label>Email address needed?</label><br>
+                        <input type="radio" id="email" value="true" name="email" required>
+                        <label id="radioButts" for="email">Yes</label><br>
+
+                        <input type="radio" value="false" name="email">
+                        <label id="radioButts">No</label><br>
+                    </div>
+
+                    <div class="radioGroup computer">
+                        <label>Computer Issued?</label><br>
+
+                        <input type="radio" id="laptop" value="true" name="computer" required>
+                        <label id="radioButts" for="laptop">Yes - Laptop</label><br>
+
+                        <input type="radio" id="desktop" value="true" name="computer">
+                        <label id="radioButts" for="desktop">Yes - Desktop</label><br>
+
+                        <input type="radio" value="false" name="computer">
+                        <label id="radioButts">No</label><br>
+                    </div>
+  
+                    <div class="radioGroup">
+                        <label>Agvantage needed?</label><br>
+                        <input type="radio" id="agvantage" value="true" name="agvantage" required>
+                        <label id="radioButts" for="agvantage">Yes</label><br>
+
+                        <input type="radio" value="false" name="agvantage">
+                        <label id="radioButts">No</label><br>
+                    </div>
+
+                    <div class="radioGroup">
+                        <label>Paperwise needed?</label><br>
+                        <input type="radio" id="paperwise" value="true" name="paperwise" required>
+                        <label id="radioButts" for="paperwise">Yes</label><br>
+
+                        <input type="radio" value="false" name="paperwise">
+                        <label id="radioButts">No</label><br>
+                    </div>
+
+                    <div class="comment">
+                        <label>Any other hardware or software information?</label><br>
+                        <textarea id="otherInfo"></textarea>
+                    </div>
+
+                    <div class="radioGroup">
+                        <label>Office phone needed?</label><br>
+                        <input type="radio" id="officePhone" value="true" name="officePhone" required>
+                        <label id="radioButts" for="officePhone">Yes</label><br>
+
+                        <input type="radio" value="false" name="officePhone">
+                        <label id="radioButts">No</label><br>
+                    </div>
+
+                    <div class="radioGroup">
+                        <label>Mobile Phone needed?</label><br>
+
+                        <input type="radio" id="andriod" value="true" name="cpuMobile">
+                        <label id="radioButts" for="andriod">Yes</label><br>
+
+                        <input type="radio" value="false" name="cpuMobile">
+                        <label id="radioButts">No</label><br>
+                    </div>
+
+                    <div class="radioGroup">
+                        <label>Key Fob needed?</label><br>
+                        <input type="radio" id="fob" value="true" name="cpuFob">
+                        <label id="radioButts" for="fob">Yes</label><br>
+
+                        <input type="radio" value="false" name="cpuFob">
+                        <label id="radioButts">No</label><br>
+
+                        <div class="renderInfo" id="computerInfo" style="visibility:hidden">
+                            
+                        </div>
+                    </div>
+
+                    <div class="radioGroup">
+                        <label>Where will the onboarding employee be located?</label><br>                
+                        <textarea id="location" placeholder="Examples being: what building, office, etc."></textarea>
+                    </div>
+
+                    <div class="radioGroup">
+                        <label>Has the onboarding welcome form been printed?</label><br>
+                        <input type="radio" id="print" value="true" name="cpuPrint">
+                        <label id="radioButts" for="print">Yes</label><br>
+
+                        <input type="radio" value="false" name="cpuPrint">
+                        <label id="radioButts">No</label><br>
+                    </div>
+                </div>
+
+                <div id="nonComputerUser" style="display:none">
+                    <div class="radioGroup">
+                        <label>Mobile Phone needed?</label><br>
+
+                        <input type="radio" id="andriod" value="true" name="nonCpuMobile" required>
+                        <label id="radioButts" for="andriod">Yes</label><br>
+
+                        <input type="radio" value="false" name="nonCpuMobile">
+                        <label id="radioButts">No</label><br>
+                    </div>
+
+                    <div class="radioGroup">
+                        <label>Key Fob needed?</label><br>
+                        <input type="radio" id="fob" value="true" name="nonCpuFob" required>
+                        <label id="radioButts" for="fob">Yes</label><br>
+
+                        <input type="radio" value="false" name="nonCpuFob">
+                        <label id="radioButts">No</label><br>
+
+                        <div class="renderInfo" id="computerInfo" style="visibility:hidden">
+                            
+                        </div>
+                    </div>
+
+                    <div class="radioGroup">
+                        <label>Has the onboarding welcome form been printed?</label><br>
+                        <input type="radio" id="print" value="true" name="nonCpuPrint" required>
+                        <label id="radioButts" for="print">Yes</label><br>
+
+                        <input type="radio" value="false" name="nonCpuPrint">
+                        <label id="radioButts">No</label><br>
+                    </div>
+                </div>
+            </div>
+
+            <div class="status">
+                <button type="button" class="scroll backButton" onCLick="goBack()">Back</button>
+                <button type="button" class="scroll nextButton" onClick="createTicket()">Submit</button>
+            </div>
+
+            <div class="popup" onclick="errorMsg()">
+                <span class="popuptext" id="myPopup">Please fill in all fields!</span>
+            </div>
+        </div>
+
+        <div id="loading" style="display:none"></div>
+
+        <div id="submitted" style="display:none">
+            <div >
+                <img src="/static/styles/check.png">
+            </div>
+            <div>
+                <h2>Ticket Created!</h2>
+                <p id="explain">A ticket has been created in Jira. Click the button below to view.</p>
+            </div>
+    
+            <div>
+                <button type="button" id="generate" class="scroll" onclick="viewTicket()">View Ticket</button>
+                <!-- <button type="button" id="generate" class="scroll" onclick="addComments()">Send Comments</button> -->
+                <a id="link" href="javascript:void(0);" style="display: none">*ERROR - INVALID INPUTS*<br>TRY AGAIN!</a>
+            </div>
+        </div>
+    
+        <div id="reset" class="reset" style="display:none">
+            <button type="submit" id="resetButt" class="scroll">New Ticket</button>
+        </div>
+    </form>
+
+
+    <!-- OFFBOARD FORM -->
+    <!-- OFFBOARD FORM -->
+    <!-- OFFBOARD FORM -->
+    <div id="offboardForm" style="display:none">
+        <div id="employeeInfo">
+            <div>
+                <h1>Employee Information</h1>
+            </div>
+
+            <div class="grid">
+                <div class="input">
+                    <div>
+                        <label>Name:</label>
+                    </div>
+                    
+                    <div>
+                        <input type="text" id="name" autocomplete="off" required/>
+                    </div>
+                </div>
+
+                <div class="input">
+                    <div>
+                        <label>Start Date:</label>
+                    </div>
+                    
+                    <div>
+                        <input type="date" id="date" autocomplete="off" required/>
+                    </div>
+                </div>
+
+                <div class="input">
+                    <div>
+                        <label>Manager:</label>
+                    </div>
+                    
+                    <div>
+                        <!-- <select name="manager" id="manager" required>
+                            <option value="Matthew Mapel">Matthew Maple</option>
+                            <option value="Alex Atkinson">Alex Atkinson</option>
+                            <option value="Luke Skywalker">Luke Skywalker</option>
+                            <option value="Darth Vadar">Darth Vadar</option>
+                        </select> -->
+                        <input type="text" id="manager" autocomplete="off" required/>
+                    </div>
+                </div>
+
+                <div class="textArea">
+                    <div>
+                        <label for="description">Description:</label>
+                    </div>
+                    <div>
+                        <textarea id="description"></textarea>
+                    </div>
+                </div>
+
+                <div class="input">
+                    <div>
+                        <label>Company:</label>
+                    </div>
+                    <div>
+                        <select name="company" id="company" required>
+                            <option value="10116">Eldon C. Stutsman</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input">
+                    <div>
+                        <label>Department:</label>
+                    </div>
+                    <div>
+                        <input type="text" id="department" autocomplete="off" required/>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="input">
+                    <div>
+                        <label>Job Title:</label>
+                    </div>
+                    <div>
+                        <input type="text" id="jobTitle" autocomplete="off" required/>
+                    </div>
+                </div>
+
+                <div class="input">
+                    <div>
+                        <label>Employee ID:</label>
+                    </div>
+                    <div>
+                        <input type="text" id="employeeID" autocomplete="off" required/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="status">
+            <button type="button" class="scroll backButton" onCLick="goBack()">Back</button>
+            <button type="button" class="scroll nextButton" onClick="createTicket()">Submit</button>
+        </div>
+    </div>
+    <!-- OFFBOARD FORM -->
+    <!-- OFFBOARD FORM -->
+    <!-- OFFBOARD FORM -->
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+    <script>
+        function imgClick() {
+            window.open("https://stutsmans.com/")
+        }
+
+        function jiraClick() {
+            window.open("https://stutsmans-sandbox-124.atlassian.net/jira/servicedesk/projects/ST/queues/custom/6")
+        }
+
+        var set;
+        function onboardClick() {
+            set = true;
+
+            var onboardForm = document.getElementById("onboardForm"); 
+            if (onboardForm.style.display === "none") {
+                onboardForm.style.display = "block";
+                document.getElementById("button1").style.display = "none";
+                document.getElementById("button2").style.display = "none";
+                document.getElementById("greet").style.display = "none";
+            } 
+        }
+
+        function offboardClick() {
+            set = false;
+
+            var offboard = document.getElementById("offboardForm");            
+
+            if (offboard.style.display === "none") {
+                offboard.style.display = "block";
+                document.getElementById("button1").style.display = "none";
+                document.getElementById("button2").style.display = "none";
+                document.getElementById("greet").style.display = "none";
+            } 
+        }
+
+        var cpu;
+        function cpuForm() {
+            var computerUser = document.getElementById("computerUser");
+            var nonComputerUser = document.getElementById("nonComputerUser");
+
+            if (computerUser.style.display === "none") {
+                computerUser.style.display = "block";
+                cpu = true;
+
+                nonComputerUser.style.display = "none";
+            } else {
+                computerUser.style.display = "none";
+            }
+        }
+
+        function nonCpuForm() {
+            var nonComputerUser = document.getElementById("nonComputerUser");
+            var computerUser = document.getElementById("computerUser");
+
+            if (nonComputerUser.style.display === "none") {
+                nonComputerUser.style.display = "block";
+                cpu = false;
+
+                computerUser.style.display = "none";
+            } else {
+                nonComputerUser.style.display = "none";
+            }
+        }
+
+        function radioSelect(name, id) {
+            var radioGroup = document.querySelector(`input[name=${name}]:checked`).value
+            var radioInput = document.getElementById(id)
+
+            if (radioGroup === "true") {
+                if (radioInput.style.visibility === "hidden") {
+                    radioInput.style.visibility = "visible";
+                }
+            } else {
+                radioInput.style.visibility = "hidden";
+            }
+        }
+
+        function createOnboard() {
+            var onboard = document.getElementById('button1').value;
+            var offboard = document.getElementById('button2').value;
+
+            const name = document.getElementById("name").value;
+            const date = document.getElementById("date").value;
+            const manager = document.getElementById("manager").value;
+            const description = document.getElementById("description").value;
+            const company = document.getElementById("company").value;
+            const department = document.getElementById("department").value;
+            const jobTitle = document.getElementById("jobTitle").value;
+            const employeeID = document.getElementById("employeeID").value;
+
+            var form;
+            if (set) {
+                form = onboard
+
+                var tasks;
+                if (cpu) {
+                    const AD = document.querySelector('input[name="AD"]:checked').value;
+                    const email = document.querySelector('input[name="email"]:checked').value;
+                    const computer = document.querySelector('input[name="computer"]:checked').value;
+                    const agvantage = document.querySelector('input[name="agvantage"]:checked').value;
+                    const paperwise = document.querySelector('input[name="paperwise"]:checked').value;
+                    const officePhone = document.querySelector('input[name="officePhone"]:checked').value;
+                    const mobile = document.querySelector('input[name="cpuMobile"]:checked').value;
+                    const fob = document.querySelector('input[name="cpuFob"]:checked').value;
+                    const print = document.querySelector('input[name="cpuPrint"]:checked').value;
+
+                    tasks = {AD, email, computer, agvantage, paperwise, officePhone, mobile, fob, print};
+                } else if (cpu === false) {
+                    const mobile = document.querySelector('input[name="nonCpuMobile"]:checked').value;
+                    const fob = document.querySelector('input[name="nonCpuFob"]:checked').value;
+                    const print = document.querySelector('input[name="nonCpuPrint"]:checked').value;
+                    
+                    tasks = {mobile, fob, print};
+                }
+
+                var dictValues = {form, name, date, manager, 
+                                    description, company, department,
+                                    jobTitle, employeeID, tasks}
+            } else {
+                form = offboard
+
+                var dictValues = {form, name, date, manager, 
+                                    description, company, department,
+                                    jobTitle, employeeID}
+            }
+            
+            // const name = document.getElementById("name").value;
+            // const date = document.getElementById("date").value;
+            // const manager = document.getElementById("manager").value;
+            // const description = document.getElementById("description").value;
+            // const company = document.getElementById("company").value;
+            // const department = document.getElementById("department").value;
+            // const jobTitle = document.getElementById("jobTitle").value;
+            // const employeeID = document.getElementById("employeeID").value;
+
+            
+
+            // var tasks;
+            // if (cpu) {
+            //     const AD = document.querySelector('input[name="AD"]:checked').value;
+            //     const email = document.querySelector('input[name="email"]:checked').value;
+            //     const computer = document.querySelector('input[name="computer"]:checked').value;
+            //     const agvantage = document.querySelector('input[name="agvantage"]:checked').value;
+            //     const paperwise = document.querySelector('input[name="paperwise"]:checked').value;
+            //     const officePhone = document.querySelector('input[name="officePhone"]:checked').value;
+            //     const mobile = document.querySelector('input[name="cpuMobile"]:checked').value;
+            //     const fob = document.querySelector('input[name="cpuFob"]:checked').value;
+            //     const print = document.querySelector('input[name="cpuPrint"]:checked').value;
+
+            //     tasks = {AD, email, computer, agvantage, paperwise, officePhone, mobile, fob, print};
+            // } else if (cpu === false) {
+            //     const mobile = document.querySelector('input[name="nonCpuMobile"]:checked').value;
+            //     const fob = document.querySelector('input[name="nonCpuFob"]:checked').value;
+            //     const print = document.querySelector('input[name="nonCpuPrint"]:checked').value;
+                
+            //     tasks = {mobile, fob, print};
+            // }
+
+            // var dictValues = {form, name, date, manager, 
+            //                     description, company, department,
+            //                     jobTitle, employeeID, tasks}
+
+            const dataToSend = JSON.stringify(dictValues);
+            // window.alert(dataToSend)
+
+            $.ajax({
+                url:"/create",
+                type:"POST",
+                contentType: "application/json",
+                data: JSON.stringify(dataToSend)
+            });
+        }
+
+        function addComments() {
+            const otherInfo = document.getElementById('otherInfo').value;
+            const location = document.getElementById('location').value;
+
+            const dictValues = {otherInfo, location}
+            const dataToSend = JSON.stringify(dictValues);
+
+            $.ajax({
+                url:"/comments",
+                type:"POST",
+                contentType: "application/json",
+                data: JSON.stringify(dataToSend)
+            });
+        }
+
+        const createTicket = async() => {
+            if (!cpu) {
+                document.querySelector('input[name="AD"]').required = false;
+                document.querySelector('input[name="email"]').required = false;
+                document.querySelector('input[name="computer"]').required = false;
+                document.querySelector('input[name="agvantage"]').required = false;
+                document.querySelector('input[name="paperwise"]').required = false;
+                document.querySelector('input[name="officePhone"]').required = false;
+            } else {
+                document.querySelector('input[name="nonCpuMobile"]').required = false;
+                document.querySelector('input[name="nonCpuFob"]').required = false;
+                document.querySelector('input[name="nonCpuPrint"]').required = false;
+            }
+
+            var $form = $('form')[0];
+            if ($form.checkValidity()) {
+                var loading = document.getElementById("loading");
+                if (loading.style.display === "none") {
+                    document.getElementById("onboardForm").style.display = "none"
+                    loading.style.display = "block";
+
+                    await setTimeout(function() {
+                        $('#loading').addClass('hidden');
+
+                        var submitted = document.getElementById("submitted")
+                        if (submitted.style.display === "none") {
+                            loading.style.display = "none"
+                            submitted.style.display = "block";
+                            document.getElementById("reset").style.display = "block";
+                        }
+
+                    }, 2500);
+                }
+            } else {
+                errorMsg()
+            }
+
+            await createOnboard();
+        }
+
+        function errorMsg() {
+            var popup = document.getElementById("myPopup");
+            popup.classList.toggle("show");
+            // window.alert("Please fill in all required fields!")
+        }
+
+        function pythonFetch() {
+            var link = document.getElementById("link")
+            if (link.style.display === "none") {
+                link.style.display = "block";
+            }
+
+            var name = document.getElementById("name");
+            if (name.value !== null) {
+                return fetch('/key').then(response => response.json()).then(function(data) {
+                    let temp = "https://stutsmans-sandbox-124.atlassian.net/jira/servicedesk/projects/ST/queues/custom/6/"
+                    let issueKey = data["key"]
+                    let issueUrl = document.getElementById("link").innerHTML = temp + issueKey
+                    document.getElementById("link").href = issueUrl
+                })
+            } 
+        }
+
+        const viewTicket = async() => {
+            addComments();
+            const result = await pythonFetch();
+            await window.open(document.getElementById("link").href)
+        }
+
+        function goBack() {
+            var onboard = document.getElementById("onboardForm");
+            var offboard = document.getElementById("offboardForm");
+            var submitted = document.getElementById("submitted");
+
+            if (onboard.style.display === "block") {
+                onboard.style.display = "none";
+            } else if (offboard.style.display === "block") {
+                offboard.style.display = "none";
+            } else if (submitted.style.display = "block") {
+                document.getElementById("submitted").style.display = "none";
+            }
+
+            document.getElementById("greet").style.display = "block";
+            document.getElementById("button1").style.display = "inline-block";
+            document.getElementById("button2").style.display = "inline-block";
+
+            const name = document.getElementById("name").value = "";
+            const date = document.getElementById("date").value = "";
+            const manager = document.getElementById("manager").value = "";
+            const description = document.getElementById("description").value = "";
+
+            // $.ajax({
+            //     url:"/delete",
+            //     type:"DELETE",
+            //     contentType: "application/json"
+            // });
+        }
+    </script>
+</body>
+</html>

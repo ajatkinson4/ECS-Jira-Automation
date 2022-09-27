@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,900&display=swap');
+
+body {
+    background-image: url("/static/styles/farm.webp");
+    background-size: cover;
+    padding-top: 20px;
+}
+
+.topBar {
+    position:relative;
+    top:-8px;
+    width: 101.6%;
+    left: -15px;
+    text-align: left;
+    /* background-color: black; */
+    padding-bottom: 20px;
+}
+
+img {
+    position: relative;
+    top: 18px;
+    left: 25px;
+    border-radius: 20px;
+    margin: 10px;
+    height: 110px;
+    width: auto;
+    cursor: pointer;
+
+    animation: fadeIn 1s;
+    -webkit-animation: fadeIn 1s;
+    -moz-animation: fadeIn 1s;
+    -o-animation: fadeIn 1s;
+    -ms-animation: fadeIn 1s;
+}
+
+.nav {
+    position: relative;
+    width:35%;
+    left: 62%;
+    top: -80px;
+    /* background-color: grey; */
+    overflow: hidden;
+    text-align: center;
+
+    animation: fadeIn 1s;
+    -webkit-animation: fadeIn 1s;
+    -moz-animation: fadeIn 1s;
+    -o-animation: fadeIn 1s;
+    -ms-animation: fadeIn 1s;
+}
+
+a {
+    font-size: 28px;
+    color: white;
+    /* text-align: right; */
+    text-decoration: none;
+    margin: 8px;
+    padding: 3px;
+}
+
+a:hover {
+    color: rgb(201, 16, 47);
+}
+
+a.active {
+    color: rgb(201, 16, 47);
+}
+
+.greet {
+    background-color: rgba(201, 16, 47, 0.833);
+    position: relative;
+    /* height: 300px; */
+    width: 60%;
+    left: 20%;
+    top: -10px;
+
+    animation: fadeIn 1s;
+    -webkit-animation: fadeIn 1s;
+    -moz-animation: fadeIn 1s;
+    -o-animation: fadeIn 1s;
+    -ms-animation: fadeIn 1s;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+    font-size:55px;
+    position: relative;
+}
+
+.info {
+    position: relative;
+    width:100%;
+}
+
+p {
+    color: white;
+    text-align: center;
+    font-size: 25px;
+    position: relative;
+    top: -20px;
+}
+
+.form {
+    text-align: center;
+
+    animation: fadeIn 1s;
+    -webkit-animation: fadeIn 1s;
+    -moz-animation: fadeIn 1s;
+    -o-animation: fadeIn 1s;
+    -ms-animation: fadeIn 1s;
+}
+
+button {
+    background-color: rgba(201, 16, 47);
+    color: white;
+    width: 30%;
+    font-size: 25px;
+    border: none;
+    position: relative;
+    top: -20px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: rgb(134, 12, 33);
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@-moz-keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@-webkit-keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@-o-keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@-ms-keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}

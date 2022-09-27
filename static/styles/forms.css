@@ -1,0 +1,589 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,900&display=swap');
+
+body {
+    background-color:rgb(201, 16, 47);
+    /* background-color: grey; */
+    /* background-image: url("/static/styles/farm2.webp"); */
+    background-size: cover;
+    padding-top: 20px;
+}
+
+.topBar {
+    position:relative;
+    top:-8px;
+    width: 101.6%;
+    left: -15px;
+    text-align: left;
+    /* background-color: black; */
+    padding-bottom: 20px;
+}
+
+.pics {
+    position: relative;
+    left: 25px;
+}
+
+img {
+    position: relative;
+    top: 18px;
+    left: 25px;
+    border-radius: 20px;
+    margin: 10px;
+    height: 110px;
+    width: auto;
+    cursor: pointer;
+
+    animation: fadeIn 1s;
+    -webkit-animation: fadeIn 1s;
+    -moz-animation: fadeIn 1s;
+    -o-animation: fadeIn 1s;
+    -ms-animation: fadeIn 1s;
+}
+
+.nav {
+    position: relative;
+    max-width:35%;
+    left: 62%;
+    top: -70px;
+    /* background-color: grey; */
+    overflow: hidden;
+    text-align: center;
+
+    animation: fadeIn 1s;
+    -webkit-animation: fadeIn 1s;
+    -moz-animation: fadeIn 1s;
+    -o-animation: fadeIn 1s;
+    -ms-animation: fadeIn 1s;
+}
+
+a {
+    font-size: 28px;
+    color: white;
+    /* text-align: right; */
+    text-decoration: none;
+    margin: 8px;
+    padding: 3px;
+}
+
+a:hover {
+    color: black;
+}
+
+a.active {
+    color: black;
+}
+
+#greet {
+    background-color: rgba(255, 255, 255, 0.904);
+    overflow: auto;
+    width: 50%;
+    position: relative;
+    top: 20px;
+    left: 25%;
+
+    /* animation: fadeIn 1s;
+    -webkit-animation: fadeIn 1s;
+    -moz-animation: fadeIn 1s;
+    -o-animation: fadeIn 1s;
+    -ms-animation: fadeIn 1s; */
+}
+
+h1 {
+    border-bottom: 4px solid rgb(201, 16, 47);
+    text-align: center;
+    font-size: 40px;
+    background-color:black;
+    color: white;
+    position: relative;
+    top: -27px;
+}
+
+p {
+    position: relative;
+    top: 10px;
+
+    color: black;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    
+    animation: fadeIn 1.5s;
+    -webkit-animation: fadeIn 1.5s;
+    -moz-animation: fadeIn 1.5s;
+    -o-animation: fadeIn 1.5s;
+    -ms-animation: fadeIn 1.5s;
+}
+
+/* .formSelect {
+    position: fixed;
+    text-align: center;
+} */
+
+.button {
+    position: relative;
+    left: 23%;
+    border: none;
+    height: 100px;
+    width: auto;
+    margin: 25px;
+    font-size: 30px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.button1 {
+    background-color: black;
+    color: white;
+    border-radius: 20px;
+    border: 4px solid rgb(201, 16, 47);
+
+    animation: fadeIn 1.5s;
+    -webkit-animation: fadeIn 1.5s;
+    -moz-animation: fadeIn 1.5s;
+    -o-animation: fadeIn 1.5s;
+    -ms-animation: fadeIn 1.5s;
+}
+
+.button1:hover {
+    background-color: rgb(201, 16, 47);
+    color: white;
+}
+
+.button2 {    
+    background-color: black;
+    color: white;
+    border-radius: 20px;
+    border: 4px solid rgba(201, 16, 47);
+
+    animation: fadeIn 1.5s;
+    -webkit-animation: fadeIn 1.5s;
+    -moz-animation: fadeIn 1.5s;
+    -o-animation: fadeIn 1.5s;
+    -ms-animation: fadeIn 1.5s;
+}
+
+.button2:hover {
+    background-color: rgba(201, 16, 47);
+    color: white;
+}
+
+.grid {
+    text-align: center;
+    position: relative;
+    top: -27px;
+}
+
+label {
+    font-weight: bold;
+    color: black;
+    font-size: 25px;
+}
+
+.input {
+    display: inline-block;
+    text-align: left;
+    /* font-weight: bold;
+    color: black;
+    font-size: 25px; */
+    margin: 15px;
+    padding-bottom:35px;
+}
+
+input {
+    padding: 8px;
+    font-size: 15px;
+    border: 3px solid black;
+    background-color: black;
+    color: white;
+    outline: none;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+}
+
+input:focus {
+    border: 3px solid rgba(201, 16, 47);
+}
+
+input[type="date"] {
+    color-scheme: dark;
+}
+
+.textArea {
+    text-align: left;
+    font-weight: bold;
+    font-size: 25px;
+    max-width: 77%;
+
+    position: relative;
+    left: 20.5%;
+    top: -15px;
+}
+
+#description {
+    height: 40px;
+    width: 75.2%;
+    font-size: 15px;
+    border: 3px solid black;
+    background-color: black;
+    color: white;
+    outline: none;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+}
+
+#description:focus {
+    border: 3px solid rgba(201, 16, 47);
+}
+
+select {
+    width: 100%;
+    height: 100%;
+    padding: 8px;
+    font-size: 15px;
+    border: 3px solid black;
+    background-color: black;
+    color: white;
+    outline: none;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+}
+
+select:focus {
+    border: 3px solid rgba(201, 16, 47);
+}
+
+.status {
+    position: relative;
+    top: 100px;
+    text-align: center;
+    margin: 20px;
+}
+
+#employeeInfo {
+    background-color: white;
+    overflow: auto;
+    max-width: 50%;
+    /* min-width: 55%; */
+    position: relative;
+    top: 20px;
+    left: 25%;
+
+    /* animation: fadeIn 1s;
+    -webkit-animation: fadeIn 1s;
+    -moz-animation: fadeIn 1s;
+    -o-animation: fadeIn 1s;
+    -ms-animation: fadeIn 1s; */
+}
+
+h3 {
+    position: relative;
+    left: 10px;
+    text-decoration: underline;
+    font-size: 30px;
+}
+
+#hardwareInfo {
+    background-color: white;
+    width: 50%;
+    /* height: 1570px; */
+    overflow: auto;
+    position: relative;
+    top: 75px;
+    left: 25%;
+}
+
+.radioGroup {
+    position: relative;
+    top: 15px;
+    left: 5%;
+    margin: 40px;
+}
+
+.hiTitle {
+    position: relative;
+    top: -95px;
+}
+
+.radioGroup.mobile {
+    position: relative; 
+    /* top: -45px; */
+    max-width: 50%;
+    /* max-height: 350px; */
+}
+
+.radioGroup.computer {
+    position: relative; 
+    max-width: 50%;
+    /* max-height: 350px; */
+}
+
+label[id="radioButts"] {
+    font-size: 18px;
+}
+
+.comment {
+    position: relative;
+    top: 15px;
+    left: 5%;
+    margin: 40px;
+}
+
+textarea {
+    width: 85%;
+    height: 75px;
+    font-size: 15px;
+    border: 3px solid black;
+    background-color: black;
+    color: white;
+    outline: none;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+}
+
+textarea:focus {
+    border: 3px solid rgba(201, 16, 47);
+}
+
+.renderInfo {
+    position: relative;
+    left: 90%;
+    top: -90px;
+}
+
+#offboardForm {
+    animation: fadeIn 1s;
+    -webkit-animation: fadeIn 1s;
+    -moz-animation: fadeIn 1s;
+    -o-animation: fadeIn 1s;
+    -ms-animation: fadeIn 1s;
+}
+
+.scroll {
+    border: 4px solid rgb(201, 16, 47);
+    background-color: black;
+    color: white;
+    width: auto;
+    transition-duration: 0.4s;
+    font-size: 20px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.scroll:hover {
+    background-color: rgb(201, 16, 47);
+}
+
+.user {
+    background-color: black;
+    color: white;
+    width: auto;
+    height: 50px;
+    margin: 15px;
+
+    position: relative;
+    top: -27px;
+    left: 20%;
+}
+
+.user:hover {
+    background-color: rgb(201, 16, 47);
+    color: white;
+}
+
+#computerUser {
+    position: relative;
+    top: -30px;
+}
+
+#nonComputerUser {
+    position: relative;
+    top: -30px;
+}
+
+.backButton {
+    background-color: black;
+    padding: 10px;
+    color: white;
+    border-radius: 10px;
+    
+    position: relative;
+    top: -20px;
+}
+
+.backButton:hover {
+    /* background-color: rgb(201, 16, 47); */
+    background-color: white;
+    color: black;
+}
+
+.nextButton {
+    background-color: black;
+    padding: 10px;
+    color: white;
+    border-radius: 10px;
+
+    position: relative;
+    top: -20px;
+}
+
+.nextButton:hover {
+    /* background-color: rgb(201, 16, 47);
+    color: white; */
+    background-color: white;
+    color: black;
+}
+
+.error {
+    display: inline-block;
+}
+
+#errorMsg {
+    position:relative;
+}
+
+#loading {
+    position: relative;
+    left: 44.5%;
+    top: 75px;
+
+    border: 16px solid rgb(201, 16, 47);
+    border-radius: 50%;
+    border-top: 16px solid black;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 1s linear infinite; /* Safari */
+    animation: spin 1s linear infinite;
+}
+  
+/* Safari */
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#loading.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+#submitted {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.904);
+    height: 425px;
+    width: 50%;
+    position: relative;
+    top: -20px;
+    left: 25%;
+
+    animation: fadeIn 1s;
+    -webkit-animation: fadeIn 1s;
+    -moz-animation: fadeIn 1s;
+    -o-animation: fadeIn 1s;
+    -ms-animation: fadeIn 1s;
+}
+
+h2 {
+    text-align: center;
+    font-size: 45px;
+
+    position: relative;
+    top: -10px;
+}
+
+#explain {
+    font-size: 20px;
+
+    position: relative;
+    top: -30px;
+}
+
+#generate {
+    position: relative;
+    top: -23px;
+}
+
+#link {
+    /* background-color: black; */
+    color: black;
+
+    font-size: 17px;
+    position: relative;
+    top: -10px;
+}
+
+.reset {
+    text-align: center;
+
+    animation: fadeIn 1s;
+    -webkit-animation: fadeIn 1s;
+    -moz-animation: fadeIn 1s;
+    -o-animation: fadeIn 1s;
+    -ms-animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@-moz-keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@-webkit-keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@-o-keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@-ms-keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* span {
+    font-size: 15px;;
+} */
+
+/* The actual popup */
+.popup .popuptext {
+    visibility: hidden;
+    background-color: black;
+    color: white;
+    font-size: 28px;;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: relative;
+    top: -35px;
+    left: 44%;
+  }
+  
+  /* Popup arrow */
+  .popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+  }
+  
+  /* Toggle this class - hide and show the popup */
+  .popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 0.1s;
+    animation: fadeIn 0.1s;
+  }
