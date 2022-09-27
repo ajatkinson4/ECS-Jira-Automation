@@ -1,3 +1,17 @@
+#######################################################
+# This file, hello.py, is the backend of this full stack web application.
+# Using the Python framework, Flask, allows the web app to run on a local server
+# to make development easier. Flask uses a URL route, `app.route('/example')`, to render
+# the html file used in the frontend, or to recieve html values from the frontend
+# that can be used in backend functions.
+#
+# To run Flask on this file, follow these steps (command-line):
+# `. flask/bin/activate`
+# `export FLASK_APP="hello.py"`
+# `flask run`
+#######################################################
+
+# Imported libraries #
 from crypt import methods
 import json
 import sys
@@ -9,60 +23,91 @@ import requests
 from requests.auth import HTTPBasicAuth
 import datetime
 
-API_TOKEN = "sc1PXIxCb5xlTbD9ixUK68F1"
+# These are global varibales that can be called from anywhere in the file.
+# API_TOKEN = uniquely gernerated through Jira
+# EMAIL = Jira account email address
+# AUTH = an HTTP request to allow REST API access to Jira
+# URL = Company's Jira link in JSON format.
+#       JSON is a data interchange format that uses human-readable text
+#       to store and transmit data objects consisting of attribute–value pairs and arrays.
+#HEADERS = JSON requirement for HTTP requests
+#######################################################
+API_TOKEN = "sc1PXIxCb5xlTbD9ixUK68F1" 
 EMAIL = "aatkinson@stutsmans.com"
 AUTH = HTTPBasicAuth(EMAIL, API_TOKEN)
 URL = "https://stutsmans-sandbox-124.atlassian.net/rest/api/3/issue/"
+HEADERS = {
+    "Accept": "application/json",
+    "Content-Type": "application/json"
+}
 
-app = Flask(__name__)
+app = Flask(__name__) #Create varibale for Flask
 
+# Homepage of the full stack web app that calls the file, `home.html` 
+# (Find `home.html` in the project folder for details)
 @app.route('/')
 def index():
     return render_template('home.html')
 
+# Forms page that calls the file, `forms.html`
+# (Find `forms.html` in the project folder for details)
 @app.route('/forms')
 def forms():
     return render_template('forms.html')
 
+
+# The function `create()` uses the HTTP POST request to create either
+# an onboarding or offboarding ticket in Jira. Later, the function
+# uses the HTTP PUT request to edit/update the new created ticket's 
+# fields with the approriate values given by the html values in `forms.html`.
 @app.route('/create', methods=['POST'])
 def create():
-    output = request.get_json()
-    # print(output) # This is the output that was stored in the JSON within the browser
-    # print(type(output))
+    output = request.get_json() # gets the html values from `forms.html`
 
-    result = json.loads(output) #this converts the json output to a python dictionary
-    # print(result) #Printing the new dictionary
-    # print(type(result)) #this shows the json converted as a python dictionary
+    result = json.loads(output) # converts the html values output to a Python dictionary
+    print(result)
+    # Example #
+    # {'form': 'onboard', 'name': 'Alex Atkinson', 'date': '2022-09-27', 'manager': 'Matt Mapel', 
+    #   'description': 'This is the description.', 'company': '10116', 'department': 'IT', 
+    #   'jobTitle': 'Intern', 'employeeID': '12345', 'tasks': {'AD': 'true', 'email': 'true', 
+    #   'computer': 'true', 'agvantage': 'true', 'paperwise': 'true', 'officePhone': 'true', 
+    #   'mobile': 'true', 'fob': 'true', 'print': 'true'}}
 
+    # Iterate through the result dictionary in a "key, value" format
+    # These iterations will first check the dictionaries key to see if it exists
+    # in the dict. If it does, then assign the value to a variable that will later be used.
+    # Otherwise, if it's not in the dict, then check for next key.
+    #
+    # The keys of the dictionary come from `forms.html`. The key's name comes from the 
+    # varibale that is assigned to the specific html value. 
+    # (See the function `createForm()` in `forms.html`)
     for key, value in result.items():
-        if key == "form":
-            if value == "onboard":
+        if key == "form": # check what type of form is recieved
+            if value == "onboard": # onboard = True
                 form = True
                 summaryType = " - Onboarding"
-            elif value == "offboard":
+            elif value == "offboard": # offboard = False
                 form = False
                 summaryType = " - Offboarding"
+            # The `form` variable is later used to specify which type of ticket to create in Jira
 
-        if key == "name":
-            if value == "":
-                raise Exception("ERROR: Invalid name! Please try again.")
+        if key == "name": 
             name = value
 
         if key == "date":
-            if value == "":
-                raise Exception("ERROR: Invalid date! Please try again.")
-            else:
-                date = value
+            date = value
 
-                #SUMMARY DATE
-                updateDate = date.split("-")   
-                summaryDate = updateDate[1] + "/" + updateDate[2] + "/" + updateDate[0][-2:]    
-                
-                #DUE DATE
-                dateObj = datetime.datetime.strptime(date, "%Y-%m-%d")
-                daysAgo = datetime.timedelta(days=5)
-                dueDate = dateObj - daysAgo
-                dueDate = str(dueDate.strftime('%Y-%m-%d'))
+            # SUMMARY DATE #
+            # Converts the given date format, `2022-09-27`, to 9/27/2022
+            updateDate = date.split("-")   
+            summaryDate = updateDate[1] + "/" + updateDate[2] + "/" + updateDate[0][-2:]    
+            
+            # DUE DATE #
+            # Converts the date format into the format required for the custom jira field
+            dateObj = datetime.datetime.strptime(date, "%Y-%m-%d")
+            daysAgo = datetime.timedelta(days=5) # specify how many days before the given date
+            dueDate = dateObj - daysAgo
+            dueDate = str(dueDate.strftime('%Y-%m-%d'))
 
         if key == "manager":
             manager = value
@@ -82,6 +127,17 @@ def create():
         if key == "employeeID":
             employeeID = value
 
+
+        #######################################
+        ############## IMPORTANT ##############
+        #######################################
+        # Each custom field in Jira has a `customfield_id` that must be specified in order to update the field.
+        # The custom field checklist is trickier because each created item has its own unique id.
+        # You MUST be sure to have the correct ids for each customfield / items.
+        # A previous problem was when the Sandbox was updated. Majority of the custom fields were changed, therefore
+        # the program crashed because it did not know the new ids.
+        # Below is a commented dictionary of the item's names and their unique ids for reference.
+        # 
         # tasks = {
         #          "Contact Manager": {"checked":"false", "id":10200},
         #          "Create user in AD":{"checked":"false", "id":10201} - AD account needed?,
@@ -103,12 +159,35 @@ def create():
         #          "Print welcome packet":{"checked":"false", "id":10217} - Welcome form printed?,
         #          "Install and configure Paperwise":{"checked":"false", "id":10218} - Paperwise needed?,
         #          }
-        
+        #
+        #
+        # The key `tasks` is different from the others
+        # `tasks` is used to update the custom checklist in Jira
+        # The value of `tasks` is a dictionary, so an iteration is required
+        # to check whether or not to mark the item as "true" in the checklist.
+        #
+        # The varibale "tasks" is a dictionary, (do not confunse the varibale "tasks" and the key `tasks`),
+        # that gets updated according to the key's value inside the value of tasks.
+        # If the key's value is "true", then check if the key matches the given variable name in `forms.html`
+        # and update the dictionary "tasks" with the item name, checked:true, id
+        # 
+        # Example #
+        # {'tasks': {'AD': 'true', 'email': 'true', 'computer': 'true', 'agvantage': 'true', 'paperwise': 'true', 
+        #            'officePhone': 'true', 'mobile': 'true', 'fob': 'true', 'print': 'true'}}
+        #
+        # key = 'tasks'
+        # value = {'AD': 'true', 'email': 'true', 'computer': 'true', 'agvantage': 'true', 'paperwise': 'true', 
+        #          'officePhone': 'true', 'mobile': 'true', 'fob': 'true', 'print': 'true'}
+        # value[i] = {'true','true','true','true','true','true','true','true','true'}
+        # i = {'AD', 'email', 'computer', 'agvantage', 'paperwise', 'officePhone', 'mobile', 'fob', 'print'}
+        #
+        # For all items that are "true", tasks.update(item name, checked:true, id)
+    
         tasks = {}
+        tasks.update({"Contact Manager": {"checked":"true", "id":"10200"}}) # Always contact manager
         if key == "tasks":
             for i in value:
                 if value[i] == "true":
-                    tasks.update({"Contact Manager": {"checked":"true", "id":"10200"}})
                     if i == "AD":
                         tasks.update({"Create user in AD":{"checked":"true", "id":"10201"}})
                         tasks.update({"Assign user to AD groups":{"checked":"true", "id":"10202"}})
@@ -141,31 +220,33 @@ def create():
                     if i == "print":
                         tasks.update({"Print welcome packet":{"checked":"true", "id":"10217"}})
                         tasks.update({"Setup workstation":{"checked":"false", "id":"10204"}})
-    # print(tasks)
+
+    # The custom field checklist's value requires a list,
+    # which is why a list is casted around the dictionary of values.
+    # Only the values of "tasks" are needed to update the custom field.
     print(list(tasks.values()))
 
-    headers = {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-    }
-
-    #Creates an onboard issue
+    # Creates an Employee Onboarding
+    # The format of `json.dumps()` is a direct copy from the Jira documentation
     if (form):
         summary = summaryDate + " - " + name + summaryType
         createOnboard = json.dumps({
             "fields": {
-                "summary": summary,
-                "issuetype": {
-                    "id": "10002"
+                "summary": summary, #Updates summary
+                "issuetype": { 
+                    "id": "10002" # Specify issue type with unique id
                 },
+
                 "components": [
                 {
                     "id": "10534"
                 }
                 ],
+
                 "project": {
-                "id": "10001"
+                    "id": "10001" # Specify unique project key/id
                 },
+
                 "description": {
                     "type": "doc",
                     "version": 1,
@@ -174,43 +255,48 @@ def create():
                             "type": "paragraph",
                             "content": [
                                 {
-                                    "text": description,
+                                    "text": description, #Description's text is the html value from `forms.html`
                                     "type": "text"
                                 }
                             ]
                         }
                     ]
                 },
-                #Assignee
-                "assignee": {"accountId": "62c49022efb17d6ce62ef3b9"},
+                # Assignee
+                "assignee": {"accountId": "62c49022efb17d6ce62ef3b9"}, # Personal account ID
+                
+                # These are the custom fields updated during ticket creation #
+                ##############################################################
+                # Onboarding Date
+                "customfield_10101": date, 
 
-                #Onboarding Date
-                "customfield_10101": date,
-
-                #Company
+                # Company - "Eldon C. Stutsman"
                 "customfield_10100": [{"value" : "Eldon C. Stutsman"}],
 
-                #Department
+                # Department
                 "customfield_10104": department,
 
-                #Job Title
+                # Job Title
                 "customfield_10103": jobTitle,
 
-                #Employee ID
+                # Employee ID
                 "customfield_10107": employeeID,
 
-                #Manager's Name
+                # Manager's Name
                 "customfield_10105": manager,
 
-                #Due Date
+                # Due Date
                 "duedate": dueDate,
 
-                #Request Type
+                # Request Type
                 "customfield_10010": "st/newhires",
 
             }
         })
         data = createOnboard
+
+    # Creates an Employee Offboarding #
+    # Exact same format as above, but less custom fields.
     else:
         summary = summaryDate + " - " + name + summaryType
         createOffboard = json.dumps({
@@ -251,6 +337,9 @@ def create():
                 #Company
                 "customfield_10100": [{"value" : "Eldon C. Stutsman"}],
 
+                # Department
+                "customfield_10104": department,
+
                 #Manager's Name
                 "customfield_10105": manager,
 
@@ -268,7 +357,7 @@ def create():
         "POST",
         URL,
         data=data,
-        headers=headers,
+        headers=HEADERS,
         auth=AUTH
     )
 
@@ -293,7 +382,7 @@ def create():
         "PUT",
         URL + issueKey,
         data=payload,
-        headers=headers,
+        headers=HEADERS,
         auth=AUTH
     )
     # print(json.dumps(json.loads(onEdit.text), sort_keys=True, indent=4, separators=(",", ": ")))
@@ -312,11 +401,6 @@ def addComments():
 
         if key == "location":
             location = value
-
-    headers = {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-    }
 
     payload = json.dumps( {
         "body": {
@@ -344,13 +428,11 @@ def addComments():
         "POST",
         "https://stutsmans-sandbox-124.atlassian.net/rest/api/3/issue/" + issueKey + "/comment",
         data=payload,
-        headers=headers,
+        headers=HEADERS,
         auth=AUTH
     )
 
-    print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
-
-    return 
+    return json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": "))
 
 @app.route('/key', methods=['GET', 'PUT'])
 def pythonJs():

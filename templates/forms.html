@@ -369,6 +369,27 @@
                             <textarea id="offDescription"></textarea>
                         </div>
                     </div>
+
+                    <div class="input">
+                        <div>
+                            <label>Company:</label>
+                        </div>
+                        <div>
+                            <select name="company" id="offCompany" required>
+                                <option value="10116">Eldon C. Stutsman</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input">
+                        <div>
+                            <label>Department:</label>
+                        </div>
+                        <div>
+                            <input type="text" id="offDepartment" autocomplete="off" required/>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -460,7 +481,7 @@
         //     }
         // }
 
-        function createOnboard() {
+        function createForm() {
             var onboard = document.getElementById('button1').value;
             var offboard = document.getElementById('button2').value;
 
@@ -508,8 +529,10 @@
                 const date = document.getElementById("offDate").value;
                 const manager = document.getElementById("offManager").value;
                 const description = document.getElementById("offDescription").value;
+                const company = document.getElementById("offCompany").value;
+                const department = document.getElementById("offDepartment").value;
 
-                var dictValues = {form, name, date, manager, description}
+                var dictValues = {form, name, date, manager, description, company, department}
             }
             
             const dataToSend = JSON.stringify(dictValues);
@@ -636,7 +659,7 @@
             //     errorMsg()
             // }
 
-            await createOnboard();
+            await createForm();
         }
 
         function errorMsg() {
