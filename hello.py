@@ -37,10 +37,10 @@ def create():
     for key, value in result.items():
         if key == "form":
             if value == "onboard":
-                # form = True
+                form = True
                 summaryType = " - Onboarding"
             elif value == "offboard":
-                # form = False
+                form = False
                 summaryType = " - Offboarding"
 
         if key == "name":
@@ -150,107 +150,119 @@ def create():
     }
 
     #Creates an onboard issue
-    # if (form):
-    summary = summaryDate + " - " + name + summaryType
-    createOnboard = json.dumps({
-        "fields": {
-            "summary": summary,
-            "issuetype": {
-                "id": "10002"
-            },
-            "components": [
-            {
-                "id": "10534"
+    if (form):
+        summary = summaryDate + " - " + name + summaryType
+        createOnboard = json.dumps({
+            "fields": {
+                "summary": summary,
+                "issuetype": {
+                    "id": "10002"
+                },
+                "components": [
+                {
+                    "id": "10534"
+                }
+                ],
+                "project": {
+                "id": "10001"
+                },
+                "description": {
+                    "type": "doc",
+                    "version": 1,
+                    "content": [
+                        {
+                            "type": "paragraph",
+                            "content": [
+                                {
+                                    "text": description,
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                #Assignee
+                "assignee": {"accountId": "62c49022efb17d6ce62ef3b9"},
+
+                #Onboarding Date
+                "customfield_10101": date,
+
+                #Company
+                "customfield_10100": [{"value" : "Eldon C. Stutsman"}],
+
+                #Department
+                "customfield_10104": department,
+
+                #Job Title
+                "customfield_10103": jobTitle,
+
+                #Employee ID
+                "customfield_10107": employeeID,
+
+                #Manager's Name
+                "customfield_10105": manager,
+
+                #Due Date
+                "duedate": dueDate,
+
+                #Request Type
+                "customfield_10010": "st/newhires",
+
             }
-            ],
-            "project": {
-            "id": "10001"
-            },
-            "description": {
-                "type": "doc",
-                "version": 1,
-                "content": [
-                    {
-                        "type": "paragraph",
-                        "content": [
-                            {
-                                "text": description,
-                                "type": "text"
-                            }
-                        ]
-                    }
-                ]
-            },
-            #Assignee
-            "assignee": {"accountId": "62c49022efb17d6ce62ef3b9"},
+        })
+        data = createOnboard
+    else:
+        summary = summaryDate + " - " + name + summaryType
+        createOffboard = json.dumps({
+            "fields": {
+                "summary": summary,
+                "issuetype": {
+                    "id": "10002"
+                },
+                "components": [
+                {
+                    "id": "10534"
+                }
+                ],
+                "project": {
+                "id": "10001"
+                },
+                "description": {
+                    "type": "doc",
+                    "version": 1,
+                    "content": [
+                        {
+                            "type": "paragraph",
+                            "content": [
+                                {
+                                    "text": description,
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                #Assignee
+                "assignee": {"accountId": "62c49022efb17d6ce62ef3b9"},
 
-            #Onboarding Date
-            "customfield_10101": date,
+                #Offboarding Date
+                "customfield_10102": date,
 
-            #Company
-            "customfield_10100": [{"value" : "Eldon C. Stutsman"}],
+                #Company
+                "customfield_10100": [{"value" : "Eldon C. Stutsman"}],
 
-            #Department
-            "customfield_10104": department,
+                #Manager's Name
+                "customfield_10105": manager,
 
-            #Job Title
-            "customfield_10103": jobTitle,
+                #Due Date
+                "duedate": dueDate,
 
-            #Employee ID
-            "customfield_10107": employeeID,
+                #Request Type
+                "customfield_10010": "st/dc693c21-9f78-4874-8fab-a0f26231b780",
 
-            #Manager's Name
-            "customfield_10105": manager,
-
-            #Due Date
-            "duedate": dueDate,
-
-            #Request Type
-            "customfield_10010": "st/newhires",
-
-        }
-    })
-    data = createOnboard
-    # else:
-    #     summary = summaryDate + " - " + name + " - Offboarding"
-    #     createOffboard = json.dumps({
-    #         "fields": {
-    #             "summary": summary,
-    #             "issuetype": {
-    #                 "id": "10002"
-    #             },
-    #             "components": [
-    #             {
-    #                 "id": "10534"
-    #             }
-    #             ],
-    #             "project": {
-    #             "id": "10001"
-    #             },
-    #             "description": {
-    #                 "type": "doc",
-    #                 "version": 1,
-    #                 "content": [
-    #                     {
-    #                         "type": "paragraph",
-    #                         "content": [
-    #                             {
-    #                                 "text": "This was a generated offboard issue by a Full Stack App.",
-    #                                 "type": "text"
-    #                             }
-    #                         ]
-    #                     }
-    #                 ]
-    #             },
-    #             "issuetype": {
-    #                 "id": "10002"
-    #             },
-    #             #Request Type
-    #             "customfield_10010": "st/dc693c21-9f78-4874-8fab-a0f26231b780",
-    #             "duedate" : date
-    #         }
-    #     })
-    #     data = createOffboard
+            }
+        })
+        data = createOffboard
 
     onCreate = requests.request(
         "POST",

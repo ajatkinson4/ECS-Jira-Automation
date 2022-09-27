@@ -39,7 +39,7 @@
         </div>
     </div>
 
-    <form method="GET" action="">
+    <form method="GET" action="" onSubmit="return false;">
         <div id="onboardForm" style="display:none">
             <div id="employeeInfo">
                 <div>
@@ -283,140 +283,101 @@
 
             <div class="status">
                 <button type="button" class="scroll backButton" onCLick="goBack()">Back</button>
-                <button type="button" class="scroll nextButton" onClick="createTicket()">Submit</button>
+                <button type="submit" class="scroll nextButton" onClick="createTicket()">Submit</button>
             </div>
 
-            <div class="popup" onclick="errorMsg()">
+            <!-- <div class="popup" onclick="errorMsg()">
                 <span class="popuptext" id="myPopup">Please fill in all fields!</span>
-            </div>
-        </div>
-
-        <div id="loading" style="display:none"></div>
-
-        <div id="submitted" style="display:none">
-            <div >
-                <img src="/static/styles/check.png">
-            </div>
-            <div>
-                <h2>Ticket Created!</h2>
-                <p id="explain">A ticket has been created in Jira. Click the button below to view.</p>
-            </div>
-    
-            <div>
-                <button type="button" id="generate" class="scroll" onclick="viewTicket()">View Ticket</button>
-                <!-- <button type="button" id="generate" class="scroll" onclick="addComments()">Send Comments</button> -->
-                <a id="link" href="javascript:void(0);" style="display: none">*ERROR - INVALID INPUTS*<br>TRY AGAIN!</a>
-            </div>
-        </div>
-    
-        <div id="reset" class="reset" style="display:none">
-            <button type="submit" id="resetButt" class="scroll">New Ticket</button>
+            </div> -->
         </div>
     </form>
 
+    <div id="loading" style="display:none"></div>
 
-    <!-- OFFBOARD FORM -->
-    <!-- OFFBOARD FORM -->
-    <!-- OFFBOARD FORM -->
-    <div id="offboardForm" style="display:none">
-        <div id="employeeInfo">
-            <div>
-                <h1>Employee Information</h1>
-            </div>
-
-            <div class="grid">
-                <div class="input">
-                    <div>
-                        <label>Name:</label>
-                    </div>
-                    
-                    <div>
-                        <input type="text" id="name" autocomplete="off" required/>
-                    </div>
-                </div>
-
-                <div class="input">
-                    <div>
-                        <label>Start Date:</label>
-                    </div>
-                    
-                    <div>
-                        <input type="date" id="date" autocomplete="off" required/>
-                    </div>
-                </div>
-
-                <div class="input">
-                    <div>
-                        <label>Manager:</label>
-                    </div>
-                    
-                    <div>
-                        <!-- <select name="manager" id="manager" required>
-                            <option value="Matthew Mapel">Matthew Maple</option>
-                            <option value="Alex Atkinson">Alex Atkinson</option>
-                            <option value="Luke Skywalker">Luke Skywalker</option>
-                            <option value="Darth Vadar">Darth Vadar</option>
-                        </select> -->
-                        <input type="text" id="manager" autocomplete="off" required/>
-                    </div>
-                </div>
-
-                <div class="textArea">
-                    <div>
-                        <label for="description">Description:</label>
-                    </div>
-                    <div>
-                        <textarea id="description"></textarea>
-                    </div>
-                </div>
-
-                <div class="input">
-                    <div>
-                        <label>Company:</label>
-                    </div>
-                    <div>
-                        <select name="company" id="company" required>
-                            <option value="10116">Eldon C. Stutsman</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="input">
-                    <div>
-                        <label>Department:</label>
-                    </div>
-                    <div>
-                        <input type="text" id="department" autocomplete="off" required/>
-                    </div>
-                </div>
-
-                <br>
-
-                <div class="input">
-                    <div>
-                        <label>Job Title:</label>
-                    </div>
-                    <div>
-                        <input type="text" id="jobTitle" autocomplete="off" required/>
-                    </div>
-                </div>
-
-                <div class="input">
-                    <div>
-                        <label>Employee ID:</label>
-                    </div>
-                    <div>
-                        <input type="text" id="employeeID" autocomplete="off" required/>
-                    </div>
-                </div>
-            </div>
+    <div id="submitted" style="display:none">
+        <div >
+            <img src="/static/styles/check.png">
+        </div>
+        <div>
+            <h2>Ticket Created!</h2>
+            <p id="explain">A ticket has been created in Jira. Click the button below to view.</p>
         </div>
 
-        <div class="status">
-            <button type="button" class="scroll backButton" onCLick="goBack()">Back</button>
-            <button type="button" class="scroll nextButton" onClick="createTicket()">Submit</button>
+        <div>
+            <button type="button" id="generate" class="scroll" onclick="viewTicket()">View Ticket</button>
+            <a id="link" href="javascript:void(0);" style="display: none">*ERROR - INVALID INPUT(S)*<br>TRY AGAIN!</a>
         </div>
     </div>
+
+    <div id="reset" class="reset" style="display:none">
+        <button type="submit" id="resetButt" class="scroll" onclick="reset()">New Ticket</button>
+    </div>
+
+
+    <!-- OFFBOARD FORM -->
+    <!-- OFFBOARD FORM -->
+    <!-- OFFBOARD FORM -->
+    <form onSubmit="return false;">
+        <div id="offboardForm" style="display:none">
+            <div id="employeeInfo">
+                <div>
+                    <h1>Employee Information</h1>
+                </div>
+
+                <div class="grid">
+                    <div class="input">
+                        <div>
+                            <label>Name:</label>
+                        </div>
+                        
+                        <div>
+                            <input type="text" id="offName" autocomplete="off" required/>
+                        </div>
+                    </div>
+
+                    <div class="input">
+                        <div>
+                            <label>End Date:</label>
+                        </div>
+                        
+                        <div>
+                            <input type="date" id="offDate" autocomplete="off" required/>
+                        </div>
+                    </div>
+
+                    <div class="input">
+                        <div>
+                            <label>Manager:</label>
+                        </div>
+                        
+                        <div>
+                            <!-- <select name="manager" id="manager" required>
+                                <option value="Matthew Mapel">Matthew Maple</option>
+                                <option value="Alex Atkinson">Alex Atkinson</option>
+                                <option value="Luke Skywalker">Luke Skywalker</option>
+                                <option value="Darth Vadar">Darth Vadar</option>
+                            </select> -->
+                            <input type="text" id="offManager" autocomplete="off" required/>
+                        </div>
+                    </div>
+
+                    <div class="textArea">
+                        <div>
+                            <label>Description:</label>
+                        </div>
+                        <div>
+                            <textarea id="offDescription"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="status">
+                <button type="button" class="scroll backButton" onCLick="goBack()">Back</button>
+                <button type="submit" class="scroll nextButton" onClick="createTicket()">Submit</button>
+            </div>
+        </div>
+    </form>
     <!-- OFFBOARD FORM -->
     <!-- OFFBOARD FORM -->
     <!-- OFFBOARD FORM -->
@@ -486,35 +447,35 @@
             }
         }
 
-        function radioSelect(name, id) {
-            var radioGroup = document.querySelector(`input[name=${name}]:checked`).value
-            var radioInput = document.getElementById(id)
+        // function radioSelect(name, id) {
+        //     var radioGroup = document.querySelector(`input[name=${name}]:checked`).value
+        //     var radioInput = document.getElementById(id)
 
-            if (radioGroup === "true") {
-                if (radioInput.style.visibility === "hidden") {
-                    radioInput.style.visibility = "visible";
-                }
-            } else {
-                radioInput.style.visibility = "hidden";
-            }
-        }
+        //     if (radioGroup === "true") {
+        //         if (radioInput.style.visibility === "hidden") {
+        //             radioInput.style.visibility = "visible";
+        //         }
+        //     } else {
+        //         radioInput.style.visibility = "hidden";
+        //     }
+        // }
 
         function createOnboard() {
             var onboard = document.getElementById('button1').value;
             var offboard = document.getElementById('button2').value;
 
-            const name = document.getElementById("name").value;
-            const date = document.getElementById("date").value;
-            const manager = document.getElementById("manager").value;
-            const description = document.getElementById("description").value;
-            const company = document.getElementById("company").value;
-            const department = document.getElementById("department").value;
-            const jobTitle = document.getElementById("jobTitle").value;
-            const employeeID = document.getElementById("employeeID").value;
-
             var form;
             if (set) {
                 form = onboard
+
+                const name = document.getElementById("name").value;
+                const date = document.getElementById("date").value;
+                const manager = document.getElementById("manager").value;
+                const description = document.getElementById("description").value;
+                const company = document.getElementById("company").value;
+                const department = document.getElementById("department").value;
+                const jobTitle = document.getElementById("jobTitle").value;
+                const employeeID = document.getElementById("employeeID").value;
 
                 var tasks;
                 if (cpu) {
@@ -529,7 +490,7 @@
                     const print = document.querySelector('input[name="cpuPrint"]:checked').value;
 
                     tasks = {AD, email, computer, agvantage, paperwise, officePhone, mobile, fob, print};
-                } else if (cpu === false) {
+                } else if (!cpu) {
                     const mobile = document.querySelector('input[name="nonCpuMobile"]:checked').value;
                     const fob = document.querySelector('input[name="nonCpuFob"]:checked').value;
                     const print = document.querySelector('input[name="nonCpuPrint"]:checked').value;
@@ -543,47 +504,14 @@
             } else {
                 form = offboard
 
-                var dictValues = {form, name, date, manager, 
-                                    description, company, department,
-                                    jobTitle, employeeID}
+                const name = document.getElementById("offName").value;
+                const date = document.getElementById("offDate").value;
+                const manager = document.getElementById("offManager").value;
+                const description = document.getElementById("offDescription").value;
+
+                var dictValues = {form, name, date, manager, description}
             }
             
-            // const name = document.getElementById("name").value;
-            // const date = document.getElementById("date").value;
-            // const manager = document.getElementById("manager").value;
-            // const description = document.getElementById("description").value;
-            // const company = document.getElementById("company").value;
-            // const department = document.getElementById("department").value;
-            // const jobTitle = document.getElementById("jobTitle").value;
-            // const employeeID = document.getElementById("employeeID").value;
-
-            
-
-            // var tasks;
-            // if (cpu) {
-            //     const AD = document.querySelector('input[name="AD"]:checked').value;
-            //     const email = document.querySelector('input[name="email"]:checked').value;
-            //     const computer = document.querySelector('input[name="computer"]:checked').value;
-            //     const agvantage = document.querySelector('input[name="agvantage"]:checked').value;
-            //     const paperwise = document.querySelector('input[name="paperwise"]:checked').value;
-            //     const officePhone = document.querySelector('input[name="officePhone"]:checked').value;
-            //     const mobile = document.querySelector('input[name="cpuMobile"]:checked').value;
-            //     const fob = document.querySelector('input[name="cpuFob"]:checked').value;
-            //     const print = document.querySelector('input[name="cpuPrint"]:checked').value;
-
-            //     tasks = {AD, email, computer, agvantage, paperwise, officePhone, mobile, fob, print};
-            // } else if (cpu === false) {
-            //     const mobile = document.querySelector('input[name="nonCpuMobile"]:checked').value;
-            //     const fob = document.querySelector('input[name="nonCpuFob"]:checked').value;
-            //     const print = document.querySelector('input[name="nonCpuPrint"]:checked').value;
-                
-            //     tasks = {mobile, fob, print};
-            // }
-
-            // var dictValues = {form, name, date, manager, 
-            //                     description, company, department,
-            //                     jobTitle, employeeID, tasks}
-
             const dataToSend = JSON.stringify(dictValues);
             // window.alert(dataToSend)
 
@@ -611,41 +539,102 @@
         }
 
         const createTicket = async() => {
-            if (!cpu) {
-                document.querySelector('input[name="AD"]').required = false;
-                document.querySelector('input[name="email"]').required = false;
-                document.querySelector('input[name="computer"]').required = false;
-                document.querySelector('input[name="agvantage"]').required = false;
-                document.querySelector('input[name="paperwise"]').required = false;
-                document.querySelector('input[name="officePhone"]').required = false;
-            } else {
-                document.querySelector('input[name="nonCpuMobile"]').required = false;
-                document.querySelector('input[name="nonCpuFob"]').required = false;
-                document.querySelector('input[name="nonCpuPrint"]').required = false;
-            }
+            if (set) {
+                if (!cpu) {
+                    //If Non-Computer User
+                    document.querySelector('input[name="AD"]').required = false;
+                    document.querySelector('input[name="email"]').required = false;
+                    document.querySelector('input[name="computer"]').required = false;
+                    document.querySelector('input[name="agvantage"]').required = false;
+                    document.querySelector('input[name="paperwise"]').required = false;
+                    document.querySelector('input[name="officePhone"]').required = false;
 
-            var $form = $('form')[0];
-            if ($form.checkValidity()) {
-                var loading = document.getElementById("loading");
-                if (loading.style.display === "none") {
-                    document.getElementById("onboardForm").style.display = "none"
-                    loading.style.display = "block";
+                    document.querySelector('input[name="nonCpuMobile"]').required = true;
+                    document.querySelector('input[name="nonCpuFob"]').required = true;
+                    document.querySelector('input[name="nonCpuPrint"]').required = true;
+                } else {
+                    //If Computer User
+                    document.querySelector('input[name="nonCpuMobile"]').required = false;
+                    document.querySelector('input[name="nonCpuFob"]').required = false;
+                    document.querySelector('input[name="nonCpuPrint"]').required = false;
 
-                    await setTimeout(function() {
-                        $('#loading').addClass('hidden');
+                    document.querySelector('input[name="AD"]').required = true;
+                    document.querySelector('input[name="email"]').required = true;
+                    document.querySelector('input[name="computer"]').required = true;
+                    document.querySelector('input[name="agvantage"]').required = true;
+                    document.querySelector('input[name="paperwise"]').required = true;
+                    document.querySelector('input[name="officePhone"]').required = true;
+                }
 
-                        var submitted = document.getElementById("submitted")
-                        if (submitted.style.display === "none") {
-                            loading.style.display = "none"
-                            submitted.style.display = "block";
-                            document.getElementById("reset").style.display = "block";
-                        }
+                var $form = $('form')[0];
+                if ($form.checkValidity()) {
+                    var loading = document.getElementById("loading");
+                    if (loading.style.display === "none") {
+                        document.getElementById("onboardForm").style.display = "none"
+                        loading.style.display = "block";
 
-                    }, 2500);
+                        await setTimeout(function() {
+                            $('#loading').addClass('hidden');
+
+                            var submitted = document.getElementById("submitted")
+                            if (submitted.style.display === "none") {
+                                loading.style.display = "none"
+                                submitted.style.display = "block";
+                                document.getElementById("reset").style.display = "block";
+                            }
+
+                        }, 2500);
+                    }
+                } else {
+                    errorMsg()
                 }
             } else {
-                errorMsg()
+                var $form = $('form')[1];
+                if ($form.checkValidity()) {
+                    var loading = document.getElementById("loading");
+                    if (loading.style.display === "none") {
+                        document.getElementById("offboardForm").style.display = "none"
+                        loading.style.display = "block";
+
+                        await setTimeout(function() {
+                            $('#loading').addClass('hidden');
+
+                            var submitted = document.getElementById("submitted")
+                            if (submitted.style.display === "none") {
+                                loading.style.display = "none"
+                                submitted.style.display = "block";
+                                document.getElementById("reset").style.display = "block";
+                            }
+
+                        }, 2500);
+                    }
+                } else {
+                    errorMsg()
+                }
             }
+                
+            // var $form = $('form')[0];
+            // if ($form.checkValidity()) {
+            //     var loading = document.getElementById("loading");
+            //     if (loading.style.display === "none") {
+            //         document.getElementById("onboardForm").style.display = "none"
+            //         loading.style.display = "block";
+
+            //         await setTimeout(function() {
+            //             $('#loading').addClass('hidden');
+
+            //             var submitted = document.getElementById("submitted")
+            //             if (submitted.style.display === "none") {
+            //                 loading.style.display = "none"
+            //                 submitted.style.display = "block";
+            //                 document.getElementById("reset").style.display = "block";
+            //             }
+
+            //         }, 2500);
+            //     }
+            // } else {
+            //     errorMsg()
+            // }
 
             await createOnboard();
         }
@@ -696,10 +685,10 @@
             document.getElementById("button1").style.display = "inline-block";
             document.getElementById("button2").style.display = "inline-block";
 
-            const name = document.getElementById("name").value = "";
-            const date = document.getElementById("date").value = "";
-            const manager = document.getElementById("manager").value = "";
-            const description = document.getElementById("description").value = "";
+            // const name = document.getElementById("name").value = "";
+            // const date = document.getElementById("date").value = "";
+            // const manager = document.getElementById("manager").value = "";
+            // const description = document.getElementById("description").value = "";
 
             // $.ajax({
             //     url:"/delete",
@@ -707,6 +696,11 @@
             //     contentType: "application/json"
             // });
         }
+
+        function reset() {
+            window.location.reload();
+        }
+
     </script>
 </body>
 </html>
