@@ -1,15 +1,78 @@
+<!---------------------------------------------------------------------------------------------->
+<!-- This entire file follows the basic format of HTML5. Additionally, a script has been added
+to configure the frontend which communicates with the backend. The frontend is written in HTML5,
+the script is written in Javascript, and the design is written in CSS (`forms.css`) -->
+<!---------------------------------------------------------------------------------------------->
+<!-- This is the frontend of the fullstack web application which allows Eldon C. Stutsman employees
+to complete an onboarding or offboarding form for new or leaving employees.  -->
+<!---------------------------------------------------------------------------------------------->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Full Stack App</title>
+    <title>ECS Forms</title> <!-- Title of the app that is shown in the tab -->
+
+    <!-- import the css file for the desgin -->
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/forms.css') }}">
-    <link href="/forms/onboard.html" rel="import" />
 </head>
 
+<!-- HTML body is the area for the user interface, UI.
+     Here is where you design the UI however you please. Throughout the body you 
+     will see many 'div' objects that have attributes such as "class", "id", "style", "onclick" etc. 
+     These atributes can be used for all objects to give it a name that can be refrenced or called
+     later using Javascript.
+     
+     An example that requires a call would be to get the value of a text field: 
+    ----------------------------------------------------------------------------------------------
+     HTML:
+     <div>
+        <input type="text" id="name"/>
+     </div>
+
+     Javascript:
+     document.getElementById("name").value
+     ---------------------------------------------------------------------------------------------
+     This method is continuously used throughout the file.
+
+     Another major attribute is "onClick()". This is used for buttons to apply an action however you'd like.
+
+     An exmaple of "onClick()" would be to make a div appear or disappear:
+     ----------------------------------------------------------------------------------------------
+     HTML:
+     <div id="info" style="display:none">
+        <input type="text" id="name"/>
+     </div>
+
+     Javascript:
+     function showDiv() {
+        var nameInput = document.getElementById("info")
+
+        if (nameInput.display === "none") {
+            nameInput.display = "block"
+        } else {
+            nameInput.display = "none"
+        }
+     }
+     ----------------------------------------------------------------------------------------------
+     Pay attention to what you name things, and make sure you are naming properly to not get confused.
+
+     These two examples are primarily what define the HTML frontend and Javascript backend.
+
+     Specifying element class or id names is also the way to call them in CSS.
+     To call a class: .class{}
+     To call an id: #id{}
+     To call a built-in element such as "input": input{}
+     -->
+
 <body id="body">
+    <!-- `topBar` is a div that has two logos and a navigation bar
+         The two logos have an "onCLick()" which directs the user
+         to ECS website or Jira.
+
+         Nav has either a Home or Forms options which travels between 
+         two different HTML files using an `href` (url link function) -->
     <div class="topBar">
         <div class="pics">
             <img src="/static/styles/ecs.webp" onclick="imgClick()" role="button">
@@ -18,15 +81,18 @@
 
         <div class="nav">
             <a href="/">HOME</a>
-            <!-- <a href="/">ABOUT</a> -->
             <a class="active" href="/forms">FORMS</a>
-            <!-- <a href="/">DEVELOPER</a> -->
         </div>
     </div>
 
+    <!-- `greet` is the front page of the "forms.html" which gives the 
+         user two buttons to select from, which are the two form types: onboard or offboard
+        
+         the buttons' "onClick()" function will a use similar method as the example 
+         to make divs appear. In this case, the div is either an onboard or offboard form -->
     <div id="greet">
         <div>
-            <h1>Eldon C. Stutsman</h1>
+            <h1>Eldon C. Stutsman</h1> <!-- h1 is title element -->
         </div>
 
         <div>
@@ -39,7 +105,15 @@
         </div>
     </div>
 
+    <!-- This is the entire onboard form that uses the built-in element "form"
+         The form is split into two parts, employee information and hardware information
+         Throughout the form you'll see many uses of "input" where it is either 
+         a text field, text area, or radio group, depending on the section
+        
+         The reason "onSubmit" is returning false is to prevent the form to reset,
+         which results in the entire webpage to refresh (which loses the user's inputs)-->
     <form method="GET" action="" onSubmit="return false;">
+        <!-- ONBOARD FORM -->
         <div id="onboardForm" style="display:none">
             <div id="employeeInfo">
                 <div>
@@ -72,6 +146,10 @@
                             <label>Manager:</label>
                         </div>
                         
+                        <!--The commented out "select" element is an exmaple of how to get 
+                            a dropdown option. "Select" in HTML is the equivalent to Jira's 
+                            multiple select custom field. That custom field requires the backend 
+                            to know the unique id of each item created in the mutiple select-->
                         <div>
                             <!-- <select name="manager" id="manager" required>
                                 <option value="Matthew Mapel">Matthew Maple</option>
@@ -134,16 +212,24 @@
                 </div>
             </div>
 
-            <div id="hardwareInfo" style="display:block">
+            <div id="hardwareInfo">
                 <div>
                     <h1>Hardware Information</h1>
                 </div>
 
+                <!--Two buttons which will specifiy if the user is a computer or non-computer user.
+                    Uses the same button concept as the example.-->
                 <div>
                     <button type="button" class="scroll user" onclick="cpuForm()">Computer User</button>
                     <button type="button" class="scroll user" onclick="nonCpuForm()">Non-Computer User</button>
                 </div>
                 
+                <!--For "radioGroup", the name of each input must match. This is HTMLs
+                    way of connecting the radio buttons into one radio group. Essentially,
+                    it prevents multiple values of a radio group.
+                    Also, it's important to give each input a value to let Javascript know which 
+                    option was clicked-->
+
                 <div id="computerUser" style="display:none">
                     <div class="radioGroup">
                         <label>Active Directory account needed?</label><br>
@@ -313,9 +399,8 @@
         <button type="submit" id="resetButt" class="scroll" onclick="reset()">New Ticket</button>
     </div>
 
-
-    <!-- OFFBOARD FORM -->
-    <!-- OFFBOARD FORM -->
+    <!--The offboard form is the exact same thing as the onboard, but inputs must 
+        be named differently so Javascript does not mix them up-->
     <!-- OFFBOARD FORM -->
     <form onSubmit="return false;">
         <div id="offboardForm" style="display:none">
@@ -399,10 +484,13 @@
             </div>
         </div>
     </form>
-    <!-- OFFBOARD FORM -->
-    <!-- OFFBOARD FORM -->
-    <!-- OFFBOARD FORM -->
 
+    <!--Script is where Javascript is allows to be used to make backend
+        actions on the frontend
+    
+        There are multiple different functions here which may also be called
+        inside one another. An easy way to follow where the function is being called
+        would be to use "CMD F" to find where functions are located. -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
     <script>
         function imgClick() {
@@ -413,6 +501,10 @@
             window.open("https://stutsmans-sandbox-124.atlassian.net/jira/servicedesk/projects/ST/queues/custom/6")
         }
 
+        // `set` is a global boolean that communicates with functions 
+        // to check if the user selected onboard or offboard
+        //
+        // These 2 click functions uses the same example provided at the top of the file.
         var set;
         function onboardClick() {
             set = true;
@@ -439,6 +531,10 @@
             } 
         }
 
+        // `cpu` is the same concept as `set`, except it lets functions know if 
+        // the user is a computer user or non-computer user.
+        //
+        // Again, the two functions mirror the example at the top of the file.
         var cpu;
         function cpuForm() {
             var computerUser = document.getElementById("computerUser");
@@ -468,6 +564,14 @@
             }
         }
 
+        //||||||||||||||||||||||||||||||||||||||||||\\
+        //////////////////NOT IN USE\\\\\\\\\\\\\\\\\\\
+        //|||||||||||||||||||||||||||||||||||||||||||\\
+        //
+        // This is a commented out function which allows radio groups to render
+        // in another div of radio buttons or even inputs. The function takes two parameter:
+        // the radio group name, and the div id.
+        //
         // function radioSelect(name, id) {
         //     var radioGroup = document.querySelector(`input[name=${name}]:checked`).value
         //     var radioInput = document.getElementById(id)
@@ -481,6 +585,33 @@
         //     }
         // }
 
+
+        // This function, `createForm()` is the glue to the entire full stack web application.
+        // Step-by-step how it works:
+        // Checks whether the user clicked an onboard or offboard form
+        // If onboard, get the values of all inputs in onboard employee information
+        //    then, check if the user is a cpu or non-cpu user
+        //    if cpu, get the value of all radio groups in cpu and put them in a Javascript object called, `tasks`.
+        //    (a Javascript object is equivalent to a Python dictionary)
+        //
+        //    if non-cpu, get the value of all radio groups in non-cpu and put them in a Javascript object called, `tasks`.
+        //    
+        //    Once all info is retrived, the object `dictValues` stores all info given by the user, including the object `tasks`
+        //
+        // If offboard, get the values of all inputs in offboard employee information
+        // Once all info is retrived, the object `dictValues` stores all info given by the user.
+        // (no radio groups needed for an offboard employee)
+        //
+        // Once all values are stored in `dictValues`, a const "dataToSend" turns the Javscript object
+        // into JSON format for the backend to read.
+        // Then, using a built-in function `ajax`, we specify these parameter:
+        // url = the Flask url route specified in the Python backend
+        // type = HTTP request type
+        // contentType = JSON requirement
+        // data = the JSON data to send to the url
+        //
+        // After the values are sent to Python, the function "create()" will be use the values accordingly
+        // to create a Jira ticket
         function createForm() {
             var onboard = document.getElementById('button1').value;
             var offboard = document.getElementById('button2').value;
@@ -534,7 +665,7 @@
 
                 var dictValues = {form, name, date, manager, description, company, department}
             }
-            
+
             const dataToSend = JSON.stringify(dictValues);
             // window.alert(dataToSend)
 
@@ -546,6 +677,11 @@
             });
         }
 
+        // This function, `addComments()` is the same, but a much simplier way to see how to send data to Python.
+        // Grab the values from the inputs
+        // Put them in an object
+        // turn them into JSON format
+        // use `ajax` to send the specified data
         function addComments() {
             const otherInfo = document.getElementById('otherInfo').value;
             const location = document.getElementById('location').value;
@@ -561,10 +697,20 @@
             });
         }
 
+        // This function, `createTicket()`, is an async function. This means that it calls
+        // other functions and uses the await function which waits for a function to finish
+        // before moving onto the next line. This is a way to make sure the app works 
+        // in a domino effect, so it does not overlap functions. 
         const createTicket = async() => {
+            // Check if onboard form or offboard form
             if (set) {
+                // Check if cpu user or non-cpu user
                 if (!cpu) {
-                    //If Non-Computer User
+                    // If Non-Computer User, disbale all required inputs for cpu users
+                    // and enable the required inputs for non-cpu.
+                    // If these inputs are not disabled, then the form will
+                    // think it is still required, even though it does not visible
+                    // on the frontend
                     document.querySelector('input[name="AD"]').required = false;
                     document.querySelector('input[name="email"]').required = false;
                     document.querySelector('input[name="computer"]').required = false;
@@ -576,7 +722,7 @@
                     document.querySelector('input[name="nonCpuFob"]').required = true;
                     document.querySelector('input[name="nonCpuPrint"]').required = true;
                 } else {
-                    //If Computer User
+                    //If Computer User, vice versa as above info
                     document.querySelector('input[name="nonCpuMobile"]').required = false;
                     document.querySelector('input[name="nonCpuFob"]').required = false;
                     document.querySelector('input[name="nonCpuPrint"]').required = false;
@@ -589,6 +735,13 @@
                     document.querySelector('input[name="officePhone"]').required = true;
                 }
 
+                // `checkValidity()` is a secure way to make sure that all inputs in the 
+                // form are filled in. "$('form')[0]" specifies the first form seen 
+                // by HTML, which in this case is the onboard form
+                // 
+                // If all inputs are filled, then the submission process is triggered,
+                // a loading screen appears for a certain number of seconds, and 
+                // calls the `createForm()` function.
                 var $form = $('form')[0];
                 if ($form.checkValidity()) {
                     var loading = document.getElementById("loading");
@@ -606,12 +759,14 @@
                                 document.getElementById("reset").style.display = "block";
                             }
 
-                        }, 2500);
+                        }, 2500); // 2.5 seconds -> 3000 = 3 seconds, etc.
                     }
                 } else {
-                    errorMsg()
+                    errorMsg() // An alternate error message that is not in use.
                 }
             } else {
+                // Same conecpt as above, except "$('form')[1]" is the second form
+                // seen by HTML, which is the offboard form.
                 var $form = $('form')[1];
                 if ($form.checkValidity()) {
                     var loading = document.getElementById("loading");
@@ -632,18 +787,30 @@
                         }, 2500);
                     }
                 } else {
-                    errorMsg()
+                    errorMsg() // An alternate error message that is not in use.
                 }
             }
-            await createForm();
+            await createForm(); // Creation of Jira ticket
         }
 
+        //||||||||||||||||||||||||||||||||||||||||||\\
+        //////////////////NOT IN USE\\\\\\\\\\\\\\\\\\\
+        //|||||||||||||||||||||||||||||||||||||||||||\\
+        //
+        // Simple error message pop up configured in HTML and CSS
         function errorMsg() {
             var popup = document.getElementById("myPopup");
             popup.classList.toggle("show");
             // window.alert("Please fill in all required fields!")
         }
 
+        // This function, `pyhtonFetch()`, fetches the Python method "/key"
+        // That gets the "issueKey" of the newly created Jira ticket.
+        // Similarly to the Python backend, Javascript handles the fetched data
+        // as a dictionary. Since we know the key name we want, we can directly grab the value.
+        // The value of the "issueKey" is then attached to a url link, which then
+        // becomes visible to the frontend as a button "View Ticket" for the user to 
+        // see their new ticket.
         function pythonFetch() {
             var link = document.getElementById("link")
             if (link.style.display === "none") {
@@ -661,12 +828,21 @@
             } 
         }
 
+        // This function, `viewTicket()` is the action of a button to travel
+        // to the newly created Ticket.
+        // Again, this uses an async function to implement the domino effect.
+        // As seen, the function`addComments()` is part of this action function.
+        // So, the comments of the ticket do not get updated until the user clicks
+        // the "View Ticket" function.
         const viewTicket = async() => {
             addComments();
             const result = await pythonFetch();
             await window.open(document.getElementById("link").href)
         }
 
+        //This function, `goBack()` is for the user to travel
+        // back to the form select screen.
+        // This uses the show div example at the top of the file.
         function goBack() {
             var onboard = document.getElementById("onboardForm");
             var offboard = document.getElementById("offboardForm");
@@ -684,11 +860,10 @@
             document.getElementById("button1").style.display = "inline-block";
             document.getElementById("button2").style.display = "inline-block";
 
-            // const name = document.getElementById("name").value = "";
-            // const date = document.getElementById("date").value = "";
-            // const manager = document.getElementById("manager").value = "";
-            // const description = document.getElementById("description").value = "";
-
+            //||||||||||||||||||||||||||||||||||||||||||\\
+            //////////////////NOT IN USE\\\\\\\\\\\\\\\\\\\
+            //|||||||||||||||||||||||||||||||||||||||||||\\
+            // An example of how to tell the Python backend to delete a specified issue.
             // $.ajax({
             //     url:"/delete",
             //     type:"DELETE",
@@ -696,6 +871,8 @@
             // });
         }
 
+        // This function, `reset()` is used for when the user would like
+        // to create a new ticket. This is the alternative to the default form submit.
         function reset() {
             window.location.reload();
         }

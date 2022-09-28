@@ -5,6 +5,6 @@ How to run (command-line):
 * Activate Flask:
   `. flask/bin/activate`
 * Export backend file to flask:
-  `export FLASK_APP="hello.py"`
+  `export FLASK_APP="backend.py"`
 * Run:
   `flask run`
