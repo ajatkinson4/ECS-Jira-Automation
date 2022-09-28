@@ -23,7 +23,8 @@ img {
     border-radius: 20px;
     margin: 10px;
     height: 110px;
-    width: auto;
+    /* width: auto; */
+    background-size: cover;
     cursor: pointer;
 
     animation: fadeIn 1s;

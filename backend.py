@@ -453,11 +453,11 @@ def addComments():
                     "type": "paragraph",
                     "content": [
                     {
-                        "text": otherInfo + "\n",
+                        "text": "Any other hardware or software information?\n" + otherInfo + "\n",
                         "type": "text"
                     },
                     {
-                        "text": location,
+                        "text": "\nWhere will the onboarding employee be located?\n" + location,
                         "type": "text"
                     }
                     ]
@@ -467,7 +467,7 @@ def addComments():
     })
 
     # This request useses its own unique url by adding "/comment" to the end.
-    # This is another reason why a new function is needed. 
+    # This is another reason why a new function is needed.
     response = requests.request(
         "POST",
         "https://stutsmans-sandbox-124.atlassian.net/rest/api/3/issue/" + issueKey + "/comment",
