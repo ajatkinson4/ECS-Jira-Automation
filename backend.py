@@ -68,7 +68,8 @@ def create():
     output = request.get_json() # gets the html values from `forms.html`
 
     result = json.loads(output) # converts the html values output to a Python dictionary
-    print(result)
+    # print(result)
+
     # Example #
     # {'form': 'onboard', 'name': 'Alex Atkinson', 'date': '2022-09-27', 'manager': 'Matt Mapel', 
     #   'description': 'This is the description.', 'company': '10116', 'department': 'IT', 
@@ -224,10 +225,7 @@ def create():
                         tasks.update({"Print welcome packet":{"checked":"true", "id":"10217"}})
                         tasks.update({"Setup workstation":{"checked":"false", "id":"10204"}})
 
-    # The custom field checklist's value requires a list,
-    # which is why a list is casted around the dictionary of values.
-    # Only the values of "tasks" are needed to update the custom field.
-    print(list(tasks.values()))
+    # print(list(tasks.values()))
 
     # Creates an Employee Onboarding
     # The format of `json.dumps()` is a direct copy from the Jira documentation.
@@ -400,8 +398,9 @@ def create():
     # Same JSON format as the "createOn/Offboard", but this time
     # "update" is used to edit the custom field checklist.
     # Tasks Checklist's value is a list of dictionaries which uses "set"
-    # that takes in its own list of dictionaries. This is the part where 
-    # casting a list type around the dictionary "tasks".
+    # that takes in its own list of dictionaries, which is why a list 
+    # is casted around the dictionary of values.
+    # Only the values of "tasks" are needed to update the custom field.
     payload = json.dumps( {
         "update": {
             # Tasks Checklist
