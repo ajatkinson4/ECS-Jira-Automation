@@ -23,7 +23,8 @@ import requests
 from requests.auth import HTTPBasicAuth
 import datetime
 
-# These are global varibales that can be called from anywhere in the file.
+# These are global varibales that can be called from anywhere in the file:
+#######################################################
 # API_TOKEN = uniquely gernerated through Jira
 # EMAIL = Jira account email address
 # AUTH = an HTTP request to allow REST API access to Jira
@@ -60,6 +61,8 @@ def forms():
 # an onboarding or offboarding ticket in Jira. Later, the function
 # uses the HTTP PUT request to edit/update the new created ticket's 
 # fields with the approriate values given by the html values in `forms.html`.
+#
+# THIS FUNCTION RUNS WHEN A FORM HAS BEEN SUBMITTED #
 @app.route('/create', methods=['POST'])
 def create():
     output = request.get_json() # gets the html values from `forms.html`
@@ -227,7 +230,11 @@ def create():
     print(list(tasks.values()))
 
     # Creates an Employee Onboarding
-    # The format of `json.dumps()` is a direct copy from the Jira documentation
+    # The format of `json.dumps()` is a direct copy from the Jira documentation.
+    # It uses a "field" key to specify the field you want to update, and the value 
+    # of that specified field. Almost all field values are of type string, but fields
+    # such as the "Company customfield_10100", takes in a list of dictionaries. 
+    # The format of all field values can be found in the Atlassian documentation.
     if (form):
         summary = summaryDate + " - " + name + summaryType
         createOnboard = json.dumps({
@@ -266,7 +273,7 @@ def create():
                 "assignee": {"accountId": "62c49022efb17d6ce62ef3b9"}, # Personal account ID
                 
                 # These are the custom fields updated during ticket creation #
-                ##############################################################
+                #
                 # Onboarding Date
                 "customfield_10101": date, 
 
@@ -289,6 +296,8 @@ def create():
                 "duedate": dueDate,
 
                 # Request Type
+                # The value of this field is the projectKey/requestTypeKey
+                # newhires is the requestTypeKey for onboarding
                 "customfield_10010": "st/newhires",
 
             }
@@ -296,7 +305,7 @@ def create():
         data = createOnboard
 
     # Creates an Employee Offboarding #
-    # Exact same format as above, but less custom fields.
+    # Exact same format as the onboarding, but less custom fields needed.
     else:
         summary = summaryDate + " - " + name + summaryType
         createOffboard = json.dumps({
@@ -347,12 +356,22 @@ def create():
                 "duedate": dueDate,
 
                 #Request Type
+                # requestTypeKey for offboarding = dc693c21-9f78-4874-8fab-a0f26231b780
                 "customfield_10010": "st/dc693c21-9f78-4874-8fab-a0f26231b780",
 
             }
         })
         data = createOffboard
 
+    # `requests.request()` is the HTTP request for POST.
+    # (Variables that are all caps are global variables)
+    # The following parameters are required:
+    #
+    # Request type = a string of either POST, PUT, GET, or DELETE (HTTP requests)
+    # URL = the JSON url to send the information. (Variables that are all caps are global variables)
+    # data = the JSON data to send
+    # headers = JSON requirement
+    # auth = the authentication of a Jira account and an API key
     onCreate = requests.request(
         "POST",
         URL,
@@ -360,16 +379,32 @@ def create():
         headers=HEADERS,
         auth=AUTH
     )
+    #######################################################
 
+    # To update the custom field checklist in Jira, it requires an HTTP PUT request
+    # to edit the Jira ticket. Another VERY IMPORTANT piece to the PUT request is the
+    # `issueKey`. The issueKey is needed to tell Jira which ticket to edit. To get the 
+    # issueKey, we take the response of the POST method, called "onCreate", which is 
+    # returned as a dictionary. Meaning, we can search the dictionary for it's issueKey value.
+    #
+    # The "global" type before `sendJs` and `issueKey` is needed if the variable is going to be 
+    # used outside of the `create()` function, which will be explained and seen later.
     global sendToJs
     sendToJs = json.loads(onCreate.text)
     # "{"id": "21827", "key": "ST-11552", "self": "https://stutsmans-sandbox-124.atlassian.net/rest/api/3/issue/21827"}"
     global issueKey
-    issueKey = sendToJs["key"]
+    issueKey = sendToJs["key"] # Since we know that "key" is a key name of the dictionary 
+                               # is always there, we do not need to iterate the dictionary to check.
 
     # Edits a current issue
+    # Same JSON format as the "createOn/Offboard", but this time
+    # "update" is used to edit the custom field checklist.
+    # Tasks Checklist's value is a list of dictionaries which uses "set"
+    # that takes in its own list of dictionaries. This is the part where 
+    # casting a list type around the dictionary "tasks".
     payload = json.dumps( {
         "update": {
+            # Tasks Checklist
             "customfield_10200": [
                 {
                     "set": list(tasks.values())
@@ -378,18 +413,26 @@ def create():
         }
     } )
 
+    # The same idea as `onCreate`, but `onEdit` uses a slightly differet
+    # url that appends the newly found "issueKey" of the newly created Jira ticket
     onEdit = requests.request(
         "PUT",
-        URL + issueKey,
+        URL + issueKey, # https://stutsmans-sandbox-124.atlassian.net/rest/api/3/issue/{issueKey}
         data=payload,
         headers=HEADERS,
         auth=AUTH
     )
     # print(json.dumps(json.loads(onEdit.text), sort_keys=True, indent=4, separators=(",", ": ")))
 
-    ticket = URL + issueKey
+    ticket = URL + issueKey # URL for the newly created ticket
     return ticket
 
+# The function `addComments` uses an HTTP POST request
+# to post the HTML values of value inputed in the text area by the user.
+# Jira or HTTP did not like an overload of HTTP requests for one function,
+# so a workaround was needed. The function is the same concept as the previous,
+# where an iteration is needed to check for HTML values, and also is a direct copy
+# from Jira documentation.
 @app.route('/comments', methods=['POST'])
 def addComments():
     output = request.get_json()
@@ -424,6 +467,8 @@ def addComments():
         }
     })
 
+    # This request useses its own unique url by adding "/comment" to the end.
+    # This is another reason why a new function is needed. 
     response = requests.request(
         "POST",
         "https://stutsmans-sandbox-124.atlassian.net/rest/api/3/issue/" + issueKey + "/comment",
@@ -434,11 +479,20 @@ def addComments():
 
     return json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": "))
 
+#######################################################
+# This function allows the frontend to use the Python value, `sendToJs`
+# `sendToJs` is the global variable used in the `create()` function,
+# which was previously explained. So, this means, once the ticket is created, 
+# the issueKey value is sent to the frontend which is then used to make 
+# a button locate the browser to the new Jira ticket. Essentially, this function
+# gives the frontend the link to the new ticket.
 @app.route('/key', methods=['GET', 'PUT'])
 def pythonJs():
-
     return sendToJs
 
+#######################################################
+# NOT IN USE #
+# This method is just an example of how to delete an issue from Jira.
 # @app.route('/delete', methods=['DELETE'])
 # def delete():
 #     onDelete = requests.request(
@@ -448,7 +502,3 @@ def pythonJs():
 #     )
 
     # print(json.dumps(json.loads(onDelete.text), sort_keys=True, indent=4, separators=(",", ": ")))
-
-@app.route('/test')
-def test():
-    return render_template('test.html')
