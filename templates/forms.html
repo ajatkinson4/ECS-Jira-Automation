@@ -18,7 +18,9 @@
 
         <div class="nav">
             <a href="/">HOME</a>
+            <!-- <a href="/">ABOUT</a> -->
             <a class="active" href="/forms">FORMS</a>
+            <!-- <a href="/">DEVELOPER</a> -->
         </div>
     </div>
 
@@ -560,33 +562,79 @@
         }
 
         const createTicket = async() => {
-            if (!cpu) {
-                //If Non-Computer User, disbale all checkbox groups for computer user
-                document.querySelector('input[name="AD"]').required = false;
-                document.querySelector('input[name="email"]').required = false;
-                document.querySelector('input[name="computer"]').required = false;
-                document.querySelector('input[name="agvantage"]').required = false;
-                document.querySelector('input[name="paperwise"]').required = false;
-                document.querySelector('input[name="officePhone"]').required = false;
+            if (set) {
+                if (!cpu) {
+                    //If Non-Computer User
+                    document.querySelector('input[name="AD"]').required = false;
+                    document.querySelector('input[name="email"]').required = false;
+                    document.querySelector('input[name="computer"]').required = false;
+                    document.querySelector('input[name="agvantage"]').required = false;
+                    document.querySelector('input[name="paperwise"]').required = false;
+                    document.querySelector('input[name="officePhone"]').required = false;
 
-                // Enable Non-computer checkbox groups
-                document.querySelector('input[name="nonCpuMobile"]').required = true;
-                document.querySelector('input[name="nonCpuFob"]').required = true;
-                document.querySelector('input[name="nonCpuPrint"]').required = true;
+                    document.querySelector('input[name="nonCpuMobile"]').required = true;
+                    document.querySelector('input[name="nonCpuFob"]').required = true;
+                    document.querySelector('input[name="nonCpuPrint"]').required = true;
+                } else {
+                    //If Computer User
+                    document.querySelector('input[name="nonCpuMobile"]').required = false;
+                    document.querySelector('input[name="nonCpuFob"]').required = false;
+                    document.querySelector('input[name="nonCpuPrint"]').required = false;
+
+                    document.querySelector('input[name="AD"]').required = true;
+                    document.querySelector('input[name="email"]').required = true;
+                    document.querySelector('input[name="computer"]').required = true;
+                    document.querySelector('input[name="agvantage"]').required = true;
+                    document.querySelector('input[name="paperwise"]').required = true;
+                    document.querySelector('input[name="officePhone"]').required = true;
+                }
+
+                var $form = $('form')[0];
+                if ($form.checkValidity()) {
+                    var loading = document.getElementById("loading");
+                    if (loading.style.display === "none") {
+                        document.getElementById("onboardForm").style.display = "none"
+                        loading.style.display = "block";
+
+                        await setTimeout(function() {
+                            $('#loading').addClass('hidden');
+
+                            var submitted = document.getElementById("submitted")
+                            if (submitted.style.display === "none") {
+                                loading.style.display = "none"
+                                submitted.style.display = "block";
+                                document.getElementById("reset").style.display = "block";
+                            }
+
+                        }, 2500);
+                    }
+                } else {
+                    errorMsg()
+                }
             } else {
-                //If Computer User, vice versa
-                document.querySelector('input[name="nonCpuMobile"]').required = false;
-                document.querySelector('input[name="nonCpuFob"]').required = false;
-                document.querySelector('input[name="nonCpuPrint"]').required = false;
+                var $form = $('form')[1];
+                if ($form.checkValidity()) {
+                    var loading = document.getElementById("loading");
+                    if (loading.style.display === "none") {
+                        document.getElementById("offboardForm").style.display = "none"
+                        loading.style.display = "block";
 
-                document.querySelector('input[name="AD"]').required = true;
-                document.querySelector('input[name="email"]').required = true;
-                document.querySelector('input[name="computer"]').required = true;
-                document.querySelector('input[name="agvantage"]').required = true;
-                document.querySelector('input[name="paperwise"]').required = true;
-                document.querySelector('input[name="officePhone"]').required = true;
+                        await setTimeout(function() {
+                            $('#loading').addClass('hidden');
+
+                            var submitted = document.getElementById("submitted")
+                            if (submitted.style.display === "none") {
+                                loading.style.display = "none"
+                                submitted.style.display = "block";
+                                document.getElementById("reset").style.display = "block";
+                            }
+
+                        }, 2500);
+                    }
+                } else {
+                    errorMsg()
+                }
             }
-
             await createForm();
         }
 
@@ -635,6 +683,11 @@
             document.getElementById("greet").style.display = "block";
             document.getElementById("button1").style.display = "inline-block";
             document.getElementById("button2").style.display = "inline-block";
+
+            // const name = document.getElementById("name").value = "";
+            // const date = document.getElementById("date").value = "";
+            // const manager = document.getElementById("manager").value = "";
+            // const description = document.getElementById("description").value = "";
 
             // $.ajax({
             //     url:"/delete",

@@ -7,7 +7,7 @@
 #
 # To run Flask on this file, follow these steps (command-line):
 # `. flask/bin/activate`
-# `export FLASK_APP="hello.py"`
+# `export FLASK_APP="backend.py"`
 # `flask run`
 #######################################################
 
