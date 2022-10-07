@@ -33,7 +33,7 @@ import datetime
 #       to store and transmit data objects consisting of attribute–value pairs and arrays.
 #HEADERS = JSON requirement for HTTP requests
 #######################################################
-API_TOKEN = "sc1PXIxCb5xlTbD9ixUK68F1" 
+API_TOKEN = "yORXNIlqKLFlxNTSUk5UBA02" 
 EMAIL = "aatkinson@stutsmans.com"
 AUTH = HTTPBasicAuth(EMAIL, API_TOKEN)
 URL = "https://stutsmans-sandbox-124.atlassian.net/rest/api/3/issue/"
@@ -301,6 +301,7 @@ def create():
             }
         })
         data = createOnboard
+        # print(data)
 
     # Creates an Employee Offboarding #
     # Exact same format as the onboarding, but less custom fields needed.
@@ -377,6 +378,7 @@ def create():
         headers=HEADERS,
         auth=AUTH
     )
+    # print(onCreate)
     #######################################################
 
     # To update the custom field checklist in Jira, it requires an HTTP PUT request
@@ -389,6 +391,7 @@ def create():
     # used outside of the `create()` function, which will be explained and seen later.
     global sendToJs
     sendToJs = json.loads(onCreate.text)
+    # print(sendToJs)
     # "{"id": "21827", "key": "ST-11552", "self": "https://stutsmans-sandbox-124.atlassian.net/rest/api/3/issue/21827"}"
     global issueKey
     issueKey = sendToJs["key"] # Since we know that "key" is a key name of the dictionary 
