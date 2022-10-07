@@ -33,7 +33,7 @@ import datetime
 #       to store and transmit data objects consisting of attribute–value pairs and arrays.
 #HEADERS = JSON requirement for HTTP requests
 #######################################################
-API_TOKEN = "yORXNIlqKLFlxNTSUk5UBA02" 
+API_TOKEN = "" 
 EMAIL = "aatkinson@stutsmans.com"
 AUTH = HTTPBasicAuth(EMAIL, API_TOKEN)
 URL = "https://stutsmans-sandbox-124.atlassian.net/rest/api/3/issue/"
